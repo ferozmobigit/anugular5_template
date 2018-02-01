@@ -11,7 +11,14 @@ import { AlertService, UserService } from '../shared/_services/index';
 })
 export class SignupComponent implements OnInit {
     model: any = {};
-    categories: any = ['Admin', 'Manufacturer', 'Distributor', 'Retailer'];
+    categories: any = [
+        "admin",
+        "manufacturer",
+        "retailer",
+        "distributor",
+        "consumer",
+        "user"
+    ];
     loading = false;
 
     constructor(

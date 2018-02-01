@@ -12,6 +12,10 @@ export class UserService {
         return this.http.get<User[]>(appConfig.apiUrl + '/users');
     }
 
+    getUserRoles() {
+        return this.http.get<User[]>(appConfig.apiUrl + '/users');
+    }
+
     getById(_id: string) {
         return this.http.get(appConfig.apiUrl + '/users/' + _id);
     }
