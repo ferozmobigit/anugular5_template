@@ -5,4 +5,5 @@
     email:string;
     name: string;
     passwordRepeat: string;
+    category: string;
   }
