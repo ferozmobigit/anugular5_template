@@ -9,7 +9,7 @@ import {
     NotificationComponent,
     ChatComponent
 } from './components';
-import { StatModule } from '../../shared';
+import { StatModule, UserService } from '../../shared';
 
 @NgModule({
     imports: [
@@ -17,13 +17,16 @@ import { StatModule } from '../../shared';
         NgbCarouselModule.forRoot(),
         NgbAlertModule.forRoot(),
         DashboardRoutingModule,
-        StatModule
+        StatModule,
     ],
     declarations: [
         DashboardComponent,
         TimelineComponent,
         NotificationComponent,
         ChatComponent
-    ]
+    ],
+    providers: [
+      UserService
+  ]
 })
 export class DashboardModule {}

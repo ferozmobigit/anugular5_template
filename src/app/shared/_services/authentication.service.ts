@@ -5,6 +5,13 @@ import 'rxjs/add/operator/map'
 
 import { appConfig } from '../../app.config';
 
+const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'Token ' + JSON.parse(localStorage.getItem('currentUser')).token
+    })
+  };
+  
 @Injectable()
 export class AuthenticationService {
     constructor(private http: HttpClient) { }
@@ -12,13 +19,16 @@ export class AuthenticationService {
     login(email: string, password: string) {
         return this.http.post<any>(appConfig.apiUrl + 'users/sessions', { email: email, password: password })
             .map(user => {
+                console.log(user.result)
+                var usrData = user.result;
                 // login successful if there's a jwt token in the response
-                if (user && user.token) {
+                if (usrData && usrData.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('currentUser', JSON.stringify(usrData));
+
                 }
 
-                return user;
+                return usrData;
             });
     }
 
