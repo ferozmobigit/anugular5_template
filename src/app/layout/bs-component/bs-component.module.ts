@@ -31,6 +31,9 @@ import { PageHeaderModule } from '../../shared';
         NgbModule.forRoot(),
         PageHeaderModule
     ],
+    exports:[
+        ModalComponent
+    ],
     declarations: [
         BsComponentComponent,
         ButtonsComponent,

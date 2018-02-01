@@ -11,14 +11,7 @@ import { AlertService, UserService } from '../shared/_services/index';
 })
 export class SignupComponent implements OnInit {
     model: any = {};
-    categories: any = [
-        "admin",
-        "manufacturer",
-        "retailer",
-        "distributor",
-        "consumer",
-        "user"
-    ];
+    roles: any = [];
     loading = false;
 
     constructor(
@@ -40,5 +33,16 @@ export class SignupComponent implements OnInit {
                 });
     }
 
-    ngOnInit() {}
+    ngOnInit() { this.getRoles(); }
+    private getRoles() {
+        this.userService.getRoles()
+            .subscribe(
+                data => {
+                    this.roles = data;
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
 }

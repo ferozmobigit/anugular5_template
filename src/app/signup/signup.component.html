@@ -53,7 +53,7 @@
                     <label for="role">Role</label>
                     <!-- <input type="text" class="form-control input-underline input-lg" name="category" [(ngModel)]="model.category" #category="ngModel" required /> -->
                     <select class="form-control input-underline input-lg" id="role" [(ngModel)]="model.role" #role="ngModel" name="role">
-                        <option *ngFor="let cat of categories" style="color:#000" [value]="cat">{{cat}}</option>
+                        <option *ngFor="let role of roles.result" style="color:#000" [value]="role">{{role}}</option>
                     </select>
                     <div *ngIf="f.submitted && !role.valid" class="help-block">role is required</div>
                 </div>

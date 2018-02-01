@@ -7,6 +7,7 @@ import { PageHeaderModule } from './../../shared';
 
 @NgModule({
     imports: [CommonModule, TablesRoutingModule, PageHeaderModule],
+    exports: [TablesComponent],
     declarations: [TablesComponent]
 })
 export class TablesModule {}
