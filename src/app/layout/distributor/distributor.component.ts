@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { Router } from '@angular/router';
-import { AlertService, DistributorService } from '../../shared/_services/index';
+import { AlertService } from '../../shared/_services/index';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Distributor } from '../../shared/index';
 
 @Component({
     selector: 'app-distributor',

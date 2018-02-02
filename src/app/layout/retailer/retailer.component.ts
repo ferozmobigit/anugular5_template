@@ -3,7 +3,6 @@ import { routerTransition } from '../../router.animations';
 import { Router } from '@angular/router';
 import { AlertService } from '../../shared/_services/index';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Retailer } from '../../shared/index';
 
 @Component({
     selector: 'app-retailer',
