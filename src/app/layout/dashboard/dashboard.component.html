@@ -1,90 +1,54 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Dashboard'" [icon]="'fa-list-alt'"></app-page-header>
-    <div class="row">
-        <div class="col-md-12">
-            <!-- <ngb-carousel>
-                <ng-template ngbSlide *ngFor="let slider of sliders">
-                    <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide" width="100%">
-                    <div class="carousel-caption">
-                        <h3>{{slider.label}}</h3>
-                        <p>{{slider.text}}</p>
-                    </div>
-                </ng-template>
-            </ngb-carousel> -->
-        </div>
-    </div>
-    <div class="row">
-        <!-- <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'primary'" [icon]="'fa-comments'" [count]="26" [label]="'New Comments!'" ></app-stat>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'warning'" [icon]="'fa-tasks'" [count]="12" [label]="'New task!'" ></app-stat>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'success'" [icon]="'fa-shopping-cart'" [count]="124" [label]="'New Orders!'" ></app-stat>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'danger'" [icon]="'fa-support'" [count]="13" [label]="'New Tickets!'"></app-stat>
-        </div> -->
-    </div>
-    <!-- <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert> -->
-    <div class="row">
-         <!-- <div class="col-lg-8">
-            <div class="card card-default">
-                <div class="card-header">
-                    <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
-                </div> -->
-                <!-- /.card-header -->
-                <!-- <app-timeline></app-timeline> -->
-                <!-- /.card-body -->
-            <!-- </div> -->
-            <!-- /.card -->
-        <!-- </div>  -->
-        <!-- /.col-lg-8 -->
-        <!-- <div class="col-lg-4">
-            <div class="card card-default mb-3">
-                <div class="card-header">
-                    <i class="fa fa-bell fa-fw"></i> Notifications card
-                </div> -->
-                <!-- /.card-header -->
-                <!-- <app-notification></app-notification> -->
-                <!-- /.card-body -->
-            <!-- </div> -->
-            <!-- /.card -->
-
-            <!-- <app-chat></app-chat> -->
-            <!-- /.card .chat-card -->
-        <!-- </div> -->
-        <!-- /.col-lg-4 -->
-    </div>
-    <div class="col-lg-12">
-        <div class="card-header">Available Users</div>
-            <div class="card-body">
+    <div class="col col-lg-12">
+        <div class="card" *ngIf="isadmin">
+            <div class="card-header">Available Users</div>
+            <div class="card-body table-responsive">
                 <table class="table table-hover table-bordered table-striped" style="width:100%">
-                    <thead>
-                    <tr>
-                        <th>S.No.</th>
-                        <th>Name</th>
-                        <th>User Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let user of users.result">
-                        <td>{{user._id}}</td>
-                        <td>{{user.name}}</td>
-                        <td>{{user.username}}</td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.role}}</td>
-                        <td>{{user.role}}</td>
-                        <!-- <td *ngIf="{{user.isApproved}};then approved else regected"></td> -->
-                    </tr>
-                    <!-- <ng-template #approved class="successText" >Approved</ng-template> -->
-                    <!-- <ng-template  #regected class="dangerText">Regected</ng-template> -->
-                </tbody>
-            </table>
+                        <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Name</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let user of users.result">
+                            <td>{{user._id}}</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.role}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="card" *ngIf="!isadmin">
+            <div class="card-header">Your Products</div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered table-striped" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>Drug Name</th>
+                            <th>Description</th>
+                            <th>Disease Name</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let product of products">
+                            <td>{{product.drugName}}</td>
+                            <td>{{product.description}}</td>
+                            <td>{{product.disease}}</td>
+                            <td><button class="btn rounded-btn">Transfer</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

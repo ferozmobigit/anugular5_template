@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { UserService } from '../../shared';
 import { Router } from '@angular/router';
+import { AlertService,UserService,ProductService } from '../../shared';
+import { Product } from '../../shared/index';
 
 @Component({
     selector: 'app-dashboard',
@@ -11,15 +12,28 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
-    public sliders: Array<any> = [];
     users: Array<any> = [];
     loading = false;
+    products: Product[];
+    isadmin:boolean = false;
 
-    constructor(private userService:UserService, private router: Router) {
+    constructor(private userService:UserService,
+        private router: Router,
+        private productService: ProductService,
+        private alertService: AlertService) {
         let role = localStorage.getItem('role');
+        this.isadmin = role=='admin' ? true : false
+        if(this.isadmin)
+        {
+            this.getAllUsers();
+        }
+        else
+        {
+            this.getAllUsers();
+        }
     }
 
-    ngOnInit() { this.getAllUsers(); }
+    ngOnInit() {}
 
     private getAllUsers() {
         this.userService.getAll()
@@ -29,6 +43,17 @@ export class DashboardComponent implements OnInit {
                 },
                 error => {
                     console.log(error)
+                });
+    }
+
+    private getAllProducts(){
+        this.productService.getAll()
+            .subscribe(
+                data => {
+                    this.products = data;
+                },
+                error => {
+                    this.alertService.error(error);
                 });
     }
 
