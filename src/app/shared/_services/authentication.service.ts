@@ -5,30 +5,25 @@ import 'rxjs/add/operator/map'
 
 import { appConfig } from '../../app.config';
 
-const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': 'Token ' + JSON.parse(localStorage.getItem('currentUser')).token
-    })
-  };
-  
+
 @Injectable()
 export class AuthenticationService {
     constructor(private http: HttpClient) { }
 
     login(email: string, password: string) {
-        return this.http.post<any>(appConfig.apiUrl + 'users/sessions', { email: email, password: password })
-            .map(user => {
-                console.log(user.result)
-                var usrData = user.result;
+
+        return this.http.post<any>(appConfig.apiUrl + 'users/sessions', { email: email, password: password }).map(resp => {
+            let user = resp.result.user
                 // login successful if there's a jwt token in the response
-                if (usrData && usrData.token) {
+                if (user && resp.result.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(usrData));
+                    localStorage.setItem('role', user.role);
+                    localStorage.setItem('name', user.username);
+                    localStorage.setItem('token', resp.result.token);
 
                 }
 
-                return usrData;
+                return user;
             });
     }
 

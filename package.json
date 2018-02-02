@@ -4,7 +4,7 @@
     "license": "Apache",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --ec true",
+        "start": "ng serve --host=0.0.0.0 --ec true",
         "build": "ng build --prod",
         "gitbuild": "ng build --prod --base /start-angular/epedigree/master/dist/",
         "test": "ng test",

@@ -4,6 +4,7 @@ import { NgbCarouselModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
+import { PageHeaderModule } from './../../shared';
 import {
     TimelineComponent,
     NotificationComponent,
@@ -14,6 +15,7 @@ import { StatModule, UserService } from '../../shared';
 @NgModule({
     imports: [
         CommonModule,
+        PageHeaderModule,
         NgbCarouselModule.forRoot(),
         NgbAlertModule.forRoot(),
         DashboardRoutingModule,
