@@ -15,8 +15,9 @@ export class ProductComponent implements OnInit {
     model: any = {};
     products: Product[];
     loading = false;
-
     closeResult: string;
+    product_details: any;
+    transfer_product_info:any;
     open(content) {
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
@@ -54,6 +55,14 @@ export class ProductComponent implements OnInit {
 
     ngOnInit() {
         this.getAllProducts()
+        let product = new Product();
+        let products = [];
+        product._id = "1"
+        product.description="Sme desc"
+        product.diseaseName = "Algimers"
+        product.drugName = "ABN Vaccine"
+        products.push(product);
+        this.products = products;
     }
     private getAllProducts(){
         this.loading = true;
@@ -62,6 +71,29 @@ export class ProductComponent implements OnInit {
                 data => {
                     this.products = data;
                     this.alertService.success('Product added', true);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
+    getProductDetails(id: string){
+        this.productService.getById(id)
+            .subscribe(
+                data => {
+                    this.product_details = data
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
+    transfer(){
+        this.productService.transfer(this.transfer_product_info)
+            .subscribe(
+                data => {
+                    this.product_details = data
+                    this.alertService.success('Product Transfered', true);
                 },
                 error => {
                     this.alertService.error(error);

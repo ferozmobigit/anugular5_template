@@ -6,4 +6,6 @@
     name: string;
     passwordRepeat: string;
     role: string;
+    status: string;
+    isApproved: boolean;
   }

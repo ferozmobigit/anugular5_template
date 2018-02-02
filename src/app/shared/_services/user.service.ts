@@ -38,6 +38,10 @@ export class UserService {
         return this.http.post(appConfig.apiUrl + 'users', user, httpOptions);
     }
 
+    approve_signup(_id: string, isApproved: boolean){
+        return this.http.post(appConfig.apiUrl + _id + '/approve_signup', isApproved, httpOptions);        
+    }
+
     update(user: User) {
         return this.http.put(appConfig.apiUrl + 'users/' + user._id, user, httpOptions);
     }

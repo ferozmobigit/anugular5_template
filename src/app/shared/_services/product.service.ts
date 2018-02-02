@@ -32,6 +32,10 @@ export class ProductService {
         return this.http.put(appConfig.apiUrl + 'products/' + product._id, product, httpOptions);
     }
 
+    transfer(product_info: Object) {
+        return this.http.put(appConfig.apiUrl + 'products/transfer' , product_info, httpOptions);
+    }
+
     delete(_id: string) {
         return this.http.delete(appConfig.apiUrl + 'products/' + _id, httpOptions);
     }

@@ -7,7 +7,7 @@
                     <button class="btn btn-primary pull-right" (click)="open(content)">Add Product</button>
                     <ng-template #content let-c="close" let-d="dismiss">
                         <div class="modal-header">
-                            <h4 class="modal-title">Modal title</h4>
+                            <h4 class="modal-title">Add Product</h4>
                             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -34,13 +34,15 @@
                                     <input type="file" class="form-control input-underline input-lg" name="drugImage" [(ngModel)]="model.drugImage" #drugImage="ngModel" />
                                     <div *ngIf="f.submitted && !drugImage.valid" class="help-block">image is required</div>
                                 </div> -->
-                                <br>
-                                <hr>
-                                <div class="form-group">
-                                    <a class="btn rounded-btn pull-right" (click)="c('Close click')">Cancel</a>
-                                    <img class="pull-right" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                    <button [disabled]="loading" class="btn rounded-btn pull-right">Submit</button>
-                                </div>
+                                <!-- <br>
+                                <hr> -->
+                                <div class="modal-footer">
+                                    <div class="form-group">
+                                        <a class="btn rounded-btn pull-right" (click)="c('Close click')">Cancel</a>
+                                        <img class="pull-right" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                        <button [disabled]="loading" class="btn rounded-btn pull-right">Submit</button>
+                                    </div>
+                                </div> 
                             </form>
                         </div>
                         <!-- <div class="modal-footer">
@@ -67,11 +69,52 @@
                     <tr *ngFor="let product of products">
                         <td>{{product.drugName}}</td>
                         <td>{{product.description}}</td>
-                        <td>{{product.disease}}</td>
-                        <td><button class="btn rounded-btn">Transfer</button></td>
+                        <td>{{product.diseaseName}}</td>
+                        <td><button class="btn btn-sm btn-info" (click)="open(productDetails)">Details</button>&nbsp;&nbsp;<button class="btn btn-sm btn-primary" (click)="open(transferProduct)">Transfer</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <ng-template #productDetails let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">{{productDetails.drugName}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+        </div>
+    </ng-template>
+    <ng-template #transferProduct let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Transfer Product</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form name="form" (ngSubmit)="f.form.valid && transfer()" #f="ngForm" novalidate>
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !transferTo.valid }">
+                    <label for="transferTo">Transfer to</label>
+                    <!-- <select class="form-control input-lg" id="transferTo" [(ngModel)]="transferTo" #transferTo="ngModel" name="transferTo">
+                        <option *ngFor="let user of users.result" style="color:#000" [value]="user._id">{{user.userName}}</option>
+                    </select> -->
+                    <div *ngIf="f.submitted && !transferTo.valid" class="help-block">this field is required</div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <a class="btn rounded-btn pull-right" (click)="c('Close click')">Cancel</a>
+                        <img class="pull-right" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        <button [disabled]="loading" class="btn rounded-btn pull-right">Submit</button>
+                    </div>
+                </div> 
+            </form>
+        </div>
+    </ng-template>
+    
 </div>
