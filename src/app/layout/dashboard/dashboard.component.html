@@ -12,15 +12,20 @@
                             <th>User Name</th>
                             <th>Email</th>
                             <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let user of users.result">
-                            <td>{{user._id}}</td>
+                        <tr *ngFor="let user of users.result; let i = index">
+                            <td>{{i+1}}</td>
                             <td>{{user.name}}</td>
                             <td>{{user.username}}</td>
                             <td>{{user.email}}</td>
                             <td>{{user.role}}</td>
+                            <td>{{user.userStatus}}</td>
+                            <td><button class="btn btn-sm btn-success rounded-btn" *ngIf="user.userStatus !== 'Active'">Approve</button>
+                            &nbsp;&nbsp;<button class="btn btn-sm btn-danger rounded-btn" *ngIf="user.userStatus !== 'Active'">Reject</button></td>
                         </tr>
                     </tbody>
                 </table>

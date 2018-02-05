@@ -31,7 +31,7 @@ export class SidebarComponent {
 
         let role = localStorage.getItem('role');
         switch (role) {
-            case 'admin':
+            case 'Admin':
                 this.menu_items.push(
                     this.getdashboard(),this.getmanufacturer(),this.getdistributor(),this.getretailer(),this.getconsumer(),this.getproduct()
                 );

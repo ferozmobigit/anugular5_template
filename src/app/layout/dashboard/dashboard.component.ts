@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
         private productService: ProductService,
         private alertService: AlertService) {
         let role = localStorage.getItem('role');
-        this.isadmin = role=='admin' ? true : false
+        this.isadmin = role=='Admin' ? true : false
         if(this.isadmin)
         {
             this.getAllUsers();
