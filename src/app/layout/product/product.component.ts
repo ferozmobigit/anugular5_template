@@ -55,17 +55,17 @@ export class ProductComponent implements OnInit {
 
     ngOnInit() {
         this.getAllProducts()
-        let product = new Product();
-        let products = [];
-        product._id = "1"
-        product.description="Sme desc"
-        product.diseaseName = "Algimers"
-        product.drugName = "ABN Vaccine"
-        products.push(product);
-        this.products = products;
+        // let product = new Product();
+        // let products = [];
+        // product._id = "1"
+        // product.description="Sme desc"
+        // product.diseaseName = "Algimers"
+        // product.drugName = "ABN Vaccine"
+        // products.push(product);
+        // this.products = products;
     }
     private getAllProducts(){
-        this.loading = true;
+        // this.loading = true;
         this.productService.getAll()
             .subscribe(
                 data => {
@@ -74,7 +74,7 @@ export class ProductComponent implements OnInit {
                 },
                 error => {
                     this.alertService.error(error);
-                    this.loading = false;
+                    // this.loading = false;
                 });
     }
     getProductDetails(id: string){

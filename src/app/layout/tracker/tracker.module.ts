@@ -7,7 +7,7 @@ import { TrackerComponent } from './tracker.component';
 import { PageHeaderModule } from './../../shared';
 import { AlertService } from '../../shared/_services/index';
 import { BsComponentModule } from '../bs-component/bs-component.module';
-import { GridModule } from '../grid/grid.module';
+import { GridModule } from '../userGrid/userGrid.module';
 import { TablesModule } from '../tables/tables.module';
 
 @NgModule({

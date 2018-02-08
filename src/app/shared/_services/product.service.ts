@@ -24,7 +24,7 @@ export class ProductService {
     }
 
     create(product: Product) {
-        console.log(product)
+        console.log(httpOptions)
         return this.http.post(appConfig.apiUrl + 'products', product, httpOptions);
     }
 

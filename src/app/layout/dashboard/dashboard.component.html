@@ -24,8 +24,8 @@
                             <td>{{user.email}}</td>
                             <td>{{user.role}}</td>
                             <td>{{user.userStatus}}</td>
-                            <td><button class="btn btn-sm btn-success rounded-btn" *ngIf="user.userStatus !== 'Active'">Approve</button>
-                            &nbsp;&nbsp;<button class="btn btn-sm btn-danger rounded-btn" *ngIf="user.userStatus !== 'Active'">Reject</button></td>
+                            <td><button class="btn btn-sm btn-primary rounded-btn btn-txt-color" *ngIf="user.userStatus !== 'Active'" (click)="user_approval(user._id,true)"><i class="btn-margin fa fa-check"></i>Approve</button>
+                            &nbsp;&nbsp;<button class="btn btn-sm rounded-btn reject-btn btn-txt-color" *ngIf="user.userStatus !== 'Active'" (click)="user_approval(user._id,false)"><i class="btn-margin fa fa-times"></i>Reject</button></td>
                         </tr>
                     </tbody>
                 </table>

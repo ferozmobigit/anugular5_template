@@ -1,0 +1,29 @@
+<div class="col col-lg-12">
+    <div class="card">
+        <div class="card-header">Available Users</div>
+        <div class="card-body table-responsive">
+            <table *ngIf="userGrid?.result" class="table table-hover table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Name</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of userGrid.result; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.username}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.role}}</td>
+                        <td>{{user.userStatus}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

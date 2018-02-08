@@ -25,18 +25,18 @@ export class DashboardComponent implements OnInit {
         this.isadmin = role=='Admin' ? true : false
         if(this.isadmin)
         {
-            this.getAllUsers();
+            this.getAllPendingSignups();
         }
         else
         {
-            this.getAllUsers();
+            this.getAllProducts();
         }
     }
 
     ngOnInit() {}
 
-    private getAllUsers() {
-        this.userService.getAll()
+    private getAllPendingSignups() {
+        this.userService.getAllPendingSignups()
             .subscribe(
                 data => {
                     this.users = data;

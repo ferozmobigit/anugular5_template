@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { GridRoutingModule } from './grid-routing.module';
-import { GridComponent } from './grid.component';
+import { GridRoutingModule } from './userGrid-routing.module';
+import { UserGrid } from './userGrid.component';
 import { PageHeaderModule } from './../../shared';
 
 @NgModule({
     imports: [CommonModule, GridRoutingModule, PageHeaderModule],
-    declarations: [GridComponent]
+    declarations: [UserGrid],
+    exports: [UserGrid]
 })
 export class GridModule {}
