@@ -33,27 +33,27 @@ export class SidebarComponent {
         switch (role) {
             case 'Admin':
                 this.menu_items.push(
-                    this.getdashboard(),this.getmanufacturer(),this.getdistributor(),this.getretailer(),this.getconsumer(),this.getproduct()
+                    this.getdashboard(),this.getmanufacturer(),this.getdistributor(),this.getretailer(),this.getconsumer(),this.getproduct(),this.gettracker()
                 );
                 break;
             case 'Manufacturer':
                 this.menu_items.push(
-                    this.getdashboard(),this.getdistributor(),this.getretailer(),this.getconsumer(),this.getproduct()
+                    this.getdashboard(),this.getdistributor(),this.getretailer(),this.getconsumer(),this.getproduct(),this.gettracker()
                 );
                 break;
             case 'Distributor':
                 this.menu_items.push(
-                    this.getdashboard(),this.getretailer(),this.getconsumer(),this.getproduct()
+                    this.getdashboard(),this.getretailer(),this.getconsumer(),this.getproduct(),this.gettracker()
                 );
                 break;
             case 'Retailer':
                 this.menu_items.push(
-                    this.getdashboard(),this.getconsumer(),this.getproduct()
+                    this.getdashboard(),this.getconsumer(),this.getproduct(),this.gettracker()
                 );
                 break;
             case 'Consumer':
                 this.menu_items.push(
-                    this.getdashboard(),this.getproduct()
+                    this.getdashboard(),this.getproduct(),this.gettracker()
                 );
                 break;
             default:
@@ -147,6 +147,15 @@ export class SidebarComponent {
                     routepath: '/product',
                     label: 'Product',
                     icon:'fa-medkit'
+                }
+    }
+
+    gettracker()
+    {
+        return {
+                    routepath: '/tracker',
+                    label: 'Trace Product',
+                    icon:'fa-search'
                 }
     }
 }

@@ -14,6 +14,7 @@ const routes: Routes = [
             { path: 'distributor', loadChildren: './distributor/distributor.module#DistributorModule' },
             { path: 'consumer', loadChildren: './consumer/consumer.module#ConsumerModule' },
             { path: 'retailer', loadChildren: './retailer/retailer.module#RetailerModule' },
+            { path: 'tracker', loadChildren: './tracker/tracker.module#TrackerModule' },
 
         ]
     }
