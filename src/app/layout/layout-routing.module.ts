@@ -11,8 +11,8 @@ const routes: Routes = [
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             { path: 'product', loadChildren: './product/product.module#ProductModule' },
             { path: 'manufacture', loadChildren: './manufacture/manufacture.module#ManufactureModule' },
+            { path: 'warehouse', loadChildren: './warehouse/warehouse.module#WarehouseModule' },
             { path: 'distributor', loadChildren: './distributor/distributor.module#DistributorModule' },
-            { path: 'consumer', loadChildren: './consumer/consumer.module#ConsumerModule' },
             { path: 'retailer', loadChildren: './retailer/retailer.module#RetailerModule' },
             { path: 'tracker', loadChildren: './tracker/tracker.module#TrackerModule' },
 

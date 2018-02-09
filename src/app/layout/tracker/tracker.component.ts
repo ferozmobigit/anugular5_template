@@ -13,9 +13,9 @@ import { Product } from '../../shared/index';
 })
 export class TrackerComponent implements OnInit {
     manufacture_status = 'complete'
-    distributor_status = 'active'
+    warehouse_status = 'active'
+    distributor_status = 'disabled'
     retailer_status = 'disabled'
-    consumer_status = 'disabled'
     constructor(){}
 
     ngOnInit(){}

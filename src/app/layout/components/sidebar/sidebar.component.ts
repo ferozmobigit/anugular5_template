@@ -32,29 +32,19 @@ export class SidebarComponent {
         let role = localStorage.getItem('role');
         switch (role) {
             case 'Admin':
-                this.menu_items.push(
-                    this.getdashboard(),this.getmanufacturer(),this.getdistributor(),this.getretailer(),this.getconsumer(),this.getproduct(),this.gettracker()
-                );
+                this.getsidebar()
                 break;
             case 'Manufacturer':
-                this.menu_items.push(
-                    this.getdashboard(),this.getdistributor(),this.getretailer(),this.getconsumer(),this.getproduct(),this.gettracker()
-                );
+                this.getsidebar()
+                break;
+            case 'Warehouse':
+                this.getsidebar()
                 break;
             case 'Distributor':
-                this.menu_items.push(
-                    this.getdashboard(),this.getretailer(),this.getconsumer(),this.getproduct(),this.gettracker()
-                );
+                this.getsidebar()
                 break;
             case 'Retailer':
-                this.menu_items.push(
-                    this.getdashboard(),this.getconsumer(),this.getproduct(),this.gettracker()
-                );
-                break;
-            case 'Consumer':
-                this.menu_items.push(
-                    this.getdashboard(),this.getproduct(),this.gettracker()
-                );
+                this.getsidebar()
                 break;
             default:
                 break;
@@ -95,7 +85,12 @@ export class SidebarComponent {
     onLoggedout() {
         localStorage.removeItem('isLoggedin');
     }
-
+    getsidebar()
+    {
+        return this.menu_items.push(
+            this.getdashboard(),this.getmanufacturer(),this.getwarehouse(),this.getdistributor(),this.getretailer(),this.getproduct(),this.gettracker()
+        );
+    }
     getdashboard()
     {
         return {
@@ -114,6 +109,15 @@ export class SidebarComponent {
                 }
     }
 
+    getwarehouse()
+    {
+        return {
+                    routepath: '/warehouse',
+                    label: 'Warehouses',
+                    icon:'fa-home'
+                }
+    }
+
     getdistributor()
     {
         return {
@@ -129,15 +133,6 @@ export class SidebarComponent {
                     routepath: '/retailer',
                     label: 'Retailers',
                     icon:'fa-stack-exchange'
-                }
-    }
-
-    getconsumer()
-    {
-        return {
-                    routepath: '/consumer',
-                    label: 'Consumers',
-                    icon:'fa-users'
                 }
     }
 
