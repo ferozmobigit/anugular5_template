@@ -14,15 +14,16 @@ export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
     users: Array<any> = [];
     loading = false;
-    products: Product[];
+    products: any = {};
     isadmin:boolean = false;
+    role: any;
 
     constructor(private userService:UserService,
         private router: Router,
         private productService: ProductService,
         private alertService: AlertService) {
-        let role = localStorage.getItem('role');
-        this.isadmin = role=='Admin' ? true : false
+        this.role = localStorage.getItem('role');
+        this.isadmin = this.role=='Admin' ? true : false
         if(this.isadmin)
         {
             this.getAllPendingSignups();
@@ -30,6 +31,13 @@ export class DashboardComponent implements OnInit {
         else
         {
             this.getAllProducts();
+            let product = new Product();
+            this.products.result = [];
+            product._id = "1"
+            product.description="Sme desc"
+            product.name = "Anti Ageing"
+            product.units = 1200
+            this.products.result.push(product);
         }
     }
 
@@ -50,13 +58,33 @@ export class DashboardComponent implements OnInit {
         this.productService.getAll()
             .subscribe(
                 data => {
-                    this.products = data;
+                    // this.products = data;
                 },
                 error => {
                     this.alertService.error(error);
                 });
     }
 
+    getAllUsersByRole() {
+        switch(this.role){
+            case 'Manufacturer':
+                this.getUserlist('Warehouse')
+            case 'Warehouse':
+                this.getUserlist('Distributor')
+            case 'Distributor':
+                this.getUserlist('Retailer')
+        }
+    }
+    private getUserlist(role){
+        this.userService.getByRole(role)
+            .subscribe(
+                data => {
+                    this.users = data;
+                },
+                error => {
+                    console.log(error)
+                });
+    }
     public closeAlert(alert: any) {
         const index: number = this.alerts.indexOf(alert);
         this.alerts.splice(index, 1);
@@ -66,10 +94,14 @@ export class DashboardComponent implements OnInit {
         this.userService.approve_signup(_id, isApproved)
             .subscribe(
                 data => {
-                    this.router.navigate(['/dashboard']);
+                    this.loading = false;
+                    this.getAllPendingSignups();
+                    this.alertService.success("Success");
                 },
                 error => {
                     this.loading = false;
+                    this.getAllPendingSignups();
+                    this.alertService.error(error);
                 });
     }
 }

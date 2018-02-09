@@ -1,7 +1,11 @@
 export class Product {
   _id: string;
-  drugName: string;
+  name: string;
   description: string;
-  diseaseName: string;
-  drugImage: File;
+  units: Number;
+  image: File;
+  NDC: string;
+  NDC_unique_id: string;
+  expiry_date: Date;
+  lot_number: Number;
 }

@@ -64,17 +64,17 @@
                 <table class="table table-hover table-bordered table-striped" style="width:100%">
                     <thead>
                     <tr>
-                        <th>Drug Name</th>
+                        <th>Name</th>
                         <th>Description</th>
-                        <th>Disease Name</th>
+                        <th>Quantity</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody *ngIf="products?.result">
                     <tr *ngFor="let product of products.result">
-                        <td>{{product.drugName}}</td>
+                        <td>{{product.name}}</td>
                         <td>{{product.description}}</td>
-                        <td>{{product.diseaseName}}</td>
+                        <td>{{product.units}}</td>
                         <td><button class="btn btn-sm btn-info" (click)="open(productDetails)">Details</button>&nbsp;&nbsp;<button class="btn btn-sm btn-primary" (click)="open(transferProduct)">Transfer</button></td>
                     </tr>
                 </tbody>
@@ -83,7 +83,7 @@
     </div>
     <ng-template #productDetails let-c="close" let-d="dismiss">
         <div class="modal-header">
-            <h4 class="modal-title">{{productDetails.drugName}}</h4>
+            <h4 class="modal-title">{{productDetails.name}}</h4>
             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                 <span aria-hidden="true">&times;</span>
             </button>

@@ -13,7 +13,7 @@ import { Product } from '../../shared/index';
 })
 export class ProductComponent implements OnInit {
     model: any = {};
-    products: Product[];
+    products: any = {};
     loading = false;
     closeResult: string;
     product_details: any;
@@ -55,21 +55,20 @@ export class ProductComponent implements OnInit {
 
     ngOnInit() {
         this.getAllProducts()
-        // let product = new Product();
-        // let products = [];
-        // product._id = "1"
-        // product.description="Sme desc"
-        // product.diseaseName = "Algimers"
-        // product.drugName = "ABN Vaccine"
-        // products.push(product);
-        // this.products = products;
+        let product = new Product();
+        this.products.result = [];
+        product._id = "1"
+        product.description="Sme desc"
+        product.name = "Anti Ageing"
+        product.units = 1200
+        this.products.result.push(product);
     }
     private getAllProducts(){
         // this.loading = true;
         this.productService.getAll()
             .subscribe(
                 data => {
-                    this.products = data;
+                    // this.products = data;
                     this.alertService.success('Product added', true);
                 },
                 error => {
@@ -78,10 +77,12 @@ export class ProductComponent implements OnInit {
                 });
     }
     getProductDetails(id: string){
+        this.loading = true;
         this.productService.getById(id)
             .subscribe(
                 data => {
                     this.product_details = data
+                    this.loading = false;
                 },
                 error => {
                     this.alertService.error(error);

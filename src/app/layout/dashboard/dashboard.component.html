@@ -16,7 +16,7 @@
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngIf="users?.result">
                         <tr *ngFor="let user of users.result; let i = index">
                             <td>{{i+1}}</td>
                             <td>{{user.name}}</td>
@@ -25,7 +25,9 @@
                             <td>{{user.role}}</td>
                             <td>{{user.userStatus}}</td>
                             <td><button class="btn btn-sm btn-primary rounded-btn btn-txt-color" *ngIf="user.userStatus !== 'Active'" (click)="user_approval(user._id,true)"><i class="btn-margin fa fa-check"></i>Approve</button>
-                            &nbsp;&nbsp;<button class="btn btn-sm rounded-btn reject-btn btn-txt-color" *ngIf="user.userStatus !== 'Active'" (click)="user_approval(user._id,false)"><i class="btn-margin fa fa-times"></i>Reject</button></td>
+                            &nbsp;&nbsp;<button class="btn btn-sm rounded-btn reject-btn btn-txt-color" *ngIf="user.userStatus !== 'Active'" (click)="user_approval(user._id,false)"><i class="btn-margin fa fa-times"></i>Reject</button>
+                            &nbsp;<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -40,16 +42,16 @@
                         <tr>
                             <th>Drug Name</th>
                             <th>Description</th>
-                            <th>Disease Name</th>
+                            <th>Quanitity</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr *ngFor="let product of products">
-                            <td>{{product.drugName}}</td>
+                        <tbody *ngIf="products?.result">
+                        <tr *ngFor="let product of products.result">
+                            <td>{{product.name}}</td>
                             <td>{{product.description}}</td>
-                            <td>{{product.disease}}</td>
-                            <td><button class="btn rounded-btn">Transfer</button></td>
+                            <td>{{product.units}}</td>
+                            <td><button class="btn btn-sm btn-info">Details</button>&nbsp;&nbsp;<button *ngIf="!(role=='Retailer')" class="btn btn-sm btn-primary">Transfer</button></td>
                         </tr>
                     </tbody>
                 </table>
