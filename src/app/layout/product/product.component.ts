@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AlertService, ProductService } from '../../shared/_services/index';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from '../../shared/index';
+import {MatDialog} from '@angular/material';
+import {MyDialogComponent} from '../bs-component/components'
 
 @Component({
     selector: 'app-product',
@@ -18,6 +20,7 @@ export class ProductComponent implements OnInit {
     closeResult: string;
     product_details: any;
     transfer_product_info:any;
+    dialogResult:any;
     open(content) {
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
@@ -38,7 +41,8 @@ export class ProductComponent implements OnInit {
         private router: Router,
         private productService: ProductService,
         private alertService: AlertService,
-        private modalService: NgbModal) { }
+        private modalService: NgbModal,
+        public dialog: MatDialog) { }
 
     addProduct() {
         this.loading = true;
@@ -99,5 +103,16 @@ export class ProductComponent implements OnInit {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+    }
+
+    openDialog() {
+        let dialogRef = this.dialog.open(MyDialogComponent, {
+        width: '600px',
+        data: 'This text is passed into the dialog!'
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog closed: ${result}`);
+        this.dialogResult = result;
+        });
     }
 }
