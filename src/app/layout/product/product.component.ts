@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject} from '@angular/core';
+import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { routerTransition } from '../../router.animations';
 import { Router } from '@angular/router';
 import { AlertService, ProductService } from '../../shared/_services/index';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from '../../shared/index';
-import {MatDialog} from '@angular/material';
-import {MyDialogComponent} from '../bs-component/components'
 
 @Component({
     selector: 'app-product',
@@ -44,6 +43,17 @@ export class ProductComponent implements OnInit {
         private modalService: NgbModal,
         public dialog: MatDialog) { }
 
+        openDialog(): void {
+            let dialog = this.dialog.open(ProductTrackDialogComponent, {
+              width: '600px',
+              height: '500px',
+              data: {  transfer_product_info: {} }
+            });
+            dialog.afterClosed().subscribe(result => {
+              console.log('The dialog was closed');
+            });
+            // dialogRef.componentInstance.dialogRef = dialogRef;
+          }
     addProduct() {
         this.loading = true;
         this.productService.create(this.model)
@@ -58,15 +68,15 @@ export class ProductComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAllProducts()
-        // let product = new Product();
-        // let products = [];
-        // product._id = "1"
-        // product.description="Sme desc"
-        // product.diseaseName = "Algimers"
-        // product.drugName = "ABN Vaccine"
-        // products.push(product);
-        // this.products = products;
+        // this.getAllProducts()
+        let product = new Product();
+        let products = [];
+        product._id = "1"
+        product.description="Sme desc"
+        product.diseaseName = "Algimers"
+        product.drugName = "ABN Vaccine"
+        products.push(product);
+        this.products = products;
     }
     private getAllProducts(){
         // this.loading = true;
@@ -105,14 +115,25 @@ export class ProductComponent implements OnInit {
                 });
     }
 
-    openDialog() {
-        let dialogRef = this.dialog.open(MyDialogComponent, {
-        width: '600px',
-        data: 'This text is passed into the dialog!'
-        });
-        dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog closed: ${result}`);
-        this.dialogResult = result;
-        });
-    }
+    
 }
+
+@Component({
+    selector: 'product-track-dialog',
+    template: './productTrackDialog.html',
+  })
+  export class ProductTrackDialogComponent {
+  
+    constructor(
+      public dialogRef: MatDialogRef<ProductTrackDialogComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.dialogRef.updatePosition({ top: '50px', left: '50px' });
+       }
+  
+    onNoClick(): void {
+      this.dialogRef.close();
+      
+    }
+  
+  }
+  

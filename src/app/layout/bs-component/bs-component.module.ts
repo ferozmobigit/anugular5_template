@@ -8,7 +8,6 @@ import { BsComponentComponent } from './bs-component.component';
 import {
     AlertComponent,
     ButtonsComponent,
-    MyDialogComponent,
     CollapseComponent,
     DatePickerComponent,
     DropdownComponent,
@@ -32,13 +31,11 @@ import { PageHeaderModule } from '../../shared';
         PageHeaderModule
     ],
     exports:[
-        MyDialogComponent
     ],
     declarations: [
         BsComponentComponent,
         ButtonsComponent,
         AlertComponent,
-        MyDialogComponent,
         CollapseComponent,
         DatePickerComponent,
         DropdownComponent,

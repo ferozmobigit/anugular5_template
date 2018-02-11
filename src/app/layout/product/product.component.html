@@ -70,12 +70,12 @@
                         <th>Actions</th>
                     </tr>
                     </thead>
-                    <tbody *ngIf="products?.result">
-                    <tr *ngFor="let product of products.result">
+                    <tbody *ngIf="products">
+                    <tr *ngFor="let product of products">
                         <td>{{product.drugName}}</td>
                         <td>{{product.description}}</td>
                         <td>{{product.diseaseName}}</td>
-                        <td><button class="btn btn-sm btn-info" (click)="open(productDetails)">Details</button>&nbsp;&nbsp;<button class="btn btn-sm btn-primary" (click)="open(transferProduct)">Transfer</button></td>
+                        <td><button class="btn btn-sm btn-info" (click)="openDialog()">Details</button>&nbsp;&nbsp;<button class="btn btn-sm btn-primary" (click)="open(transferProduct)">Transfer</button></td>
                     </tr>
                 </tbody>
             </table>

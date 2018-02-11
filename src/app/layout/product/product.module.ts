@@ -12,8 +12,8 @@ import { TablesModule } from '../tables/tables.module';
 import {MatDialogModule,MatCardModule,MatButtonModule} from '@angular/material';
 
 @NgModule({
-    imports: [CommonModule, ProductRoutingModule, PageHeaderModule, FormsModule, BsComponentModule, GridModule, TablesModule,MatDialogModule,MatCardModule,MatButtonModule],
-    declarations: [ProductComponent],
+    imports: [CommonModule, ProductRoutingModule, PageHeaderModule, FormsModule, BsComponentModule, GridModule, TablesModule],
+    declarations: [ProductComponent], 
     providers: [
       AlertService,
       ProductService,

@@ -6,12 +6,14 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule }    from '@angular/forms';
+import { MatDialogModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { AlertComponent } from './shared/_directives/index';
 import { AlertService, AuthenticationService, UserService } from './shared/_services/index';
+import { ProductTrackDialogComponent } from './layout/product/product.component'
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -27,6 +29,7 @@ export function createTranslateLoader(http: HttpClient) {
         FormsModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        MatDialogModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -36,7 +39,8 @@ export function createTranslateLoader(http: HttpClient) {
         }),
         AppRoutingModule
     ],
-    declarations: [AppComponent, AlertComponent],
+    entryComponents:[ProductTrackDialogComponent],
+    declarations: [AppComponent, AlertComponent,ProductTrackDialogComponent],
     providers: [AuthGuard, AlertService],
     bootstrap: [AppComponent]
 })
