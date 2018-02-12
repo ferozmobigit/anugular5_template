@@ -11,6 +11,7 @@ import {
     ChatComponent
 } from './components';
 import { StatModule, AlertService, UserService, ProductService } from '../../shared';
+import { MatDialogRef } from '@angular/material';
 
 @NgModule({
     imports: [
@@ -30,7 +31,7 @@ import { StatModule, AlertService, UserService, ProductService } from '../../sha
     providers: [
       AlertService,
       UserService,
-      ProductService
+      ProductService,
   ]
 })
 export class DashboardModule {}

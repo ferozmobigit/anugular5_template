@@ -42,7 +42,7 @@
                         <tr>
                             <th>Drug Name</th>
                             <th>Description</th>
-                            <th>Quanitity</th>
+                            <th>Quantity</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -51,7 +51,7 @@
                             <td>{{product.name}}</td>
                             <td>{{product.description}}</td>
                             <td>{{product.units}}</td>
-                            <td><button class="btn btn-sm btn-info">Details</button>&nbsp;&nbsp;<button *ngIf="!(role=='Retailer')" class="btn btn-sm btn-primary">Transfer</button></td>
+                            <td><button class="btn btn-sm btn-info" (click)="showDetailsDialog(product)">Details</button>&nbsp;&nbsp;<button *ngIf="!(role=='Retailer')" class="btn btn-sm btn-primary" (click)="showTransferProductModal(role, product)">Transfer</button></td>
                         </tr>
                     </tbody>
                 </table>
