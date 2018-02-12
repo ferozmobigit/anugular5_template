@@ -44,10 +44,15 @@ export class ProductComponent implements OnInit {
         public dialog: MatDialog) { }
 
         openDialog(): void {
+
             let dialog = this.dialog.open(ProductTrackDialogComponent, {
               width: '600px',
               height: '500px',
-              data: {  transfer_product_info: {} }
+              data: {   manufacture_status : 'complete',
+                        warehouse_status : 'active',
+                        distributor_status : 'disabled',
+                        retailer_status : 'disabled'
+                    }
             });
             dialog.afterClosed().subscribe(result => {
               console.log('The dialog was closed');
@@ -115,25 +120,25 @@ export class ProductComponent implements OnInit {
                 });
     }
 
-    
+
 }
 
 @Component({
     selector: 'product-track-dialog',
-    template: './productTrackDialog.html',
+    templateUrl: './productTrackDialog.html',
+    styleUrls: ['./product.component.scss'],
   })
   export class ProductTrackDialogComponent {
-  
+
     constructor(
       public dialogRef: MatDialogRef<ProductTrackDialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.dialogRef.updatePosition({ top: '50px', left: '50px' });
        }
-  
+
     onNoClick(): void {
       this.dialogRef.close();
-      
+
     }
-  
+
   }
-  
