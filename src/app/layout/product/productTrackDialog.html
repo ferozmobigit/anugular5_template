@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>Product Tracker</h1>
+<div mat-dialog-content>
+    <div class="col col-lg-12">
+        <div class="row bs-wizard" style="border-bottom:0;">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bs-wizard-step {{data.manufacture_status}}">
+                  <div class="text-center bs-wizard-stepnum">Manufacture</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <span class="bs-wizard-dot"><i class="fa fa-fw fa-2x fa-linode"></i></span>
+                  <div class="bs-wizard-info text-center">xxxxx</div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bs-wizard-step {{data.warehouse_status}}"><!-- active -->
+                  <div class="text-center bs-wizard-stepnum">Warehouse</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <span class="bs-wizard-dot"><i class="fa fa-fw fa-2x fa-home"></i></span>
+                  <div class="bs-wizard-info text-center">xxxxx</div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bs-wizard-step {{data.distributor_status}}"><!-- complete -->
+                  <div class="text-center bs-wizard-stepnum">Distributor</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <span class="bs-wizard-dot"><i class="fa fa-fw fa-2x fa-truck"></i></span>
+                  <div class="bs-wizard-info text-center">xxxxx</div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bs-wizard-step {{data.retailer_status}}"><!-- complete -->
+                  <div class="text-center bs-wizard-stepnum">Retailer</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                 <span class="bs-wizard-dot"><i class="fa fa-fw fa-2x fa-stack-exchange"></i></span>
+                  <div class="bs-wizard-info text-center">xxxxx</div>
+                </div>
+            </div>
+    </div>
+</div>
+<div mat-dialog-actions class="pull-right">
+  <button _ngcontent-c4="" class="btn btn-sm btn-info" (click)="onNoClick()"> Close</button>
+</div>
+
+
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

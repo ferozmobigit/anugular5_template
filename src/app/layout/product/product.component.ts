@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject} from '@angular/core';
+import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { routerTransition } from '../../router.animations';
 import { Router } from '@angular/router';
 import { AlertService, ProductService } from '../../shared/_services/index';
@@ -18,6 +19,7 @@ export class ProductComponent implements OnInit {
     closeResult: string;
     product_details: any;
     transfer_product_info:any;
+    dialogResult:any;
     open(content) {
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
@@ -38,8 +40,25 @@ export class ProductComponent implements OnInit {
         private router: Router,
         private productService: ProductService,
         private alertService: AlertService,
-        private modalService: NgbModal) { }
+        private modalService: NgbModal,
+        public dialog: MatDialog) { }
 
+        openDialog(): void {
+
+            let dialog = this.dialog.open(ProductTrackDialogComponent, {
+              width: '600px',
+              height: '500px',
+              data: {   manufacture_status : 'complete',
+                        warehouse_status : 'active',
+                        distributor_status : 'disabled',
+                        retailer_status : 'disabled'
+                    }
+            });
+            dialog.afterClosed().subscribe(result => {
+              console.log('The dialog was closed');
+            });
+            // dialogRef.componentInstance.dialogRef = dialogRef;
+          }
     addProduct() {
         this.loading = true;
         this.productService.create(this.model)
@@ -101,4 +120,26 @@ export class ProductComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
+
 }
+
+@Component({
+    selector: 'product-track-dialog',
+    templateUrl: './productTrackDialog.html',
+    styleUrls: ['./product.component.scss'],
+  })
+  export class ProductTrackDialogComponent {
+
+    constructor(
+      public dialogRef: MatDialogRef<ProductTrackDialogComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.dialogRef.updatePosition({ top: '50px', left: '50px' });
+       }
+
+    onNoClick(): void {
+      this.dialogRef.close();
+
+    }
+
+  }

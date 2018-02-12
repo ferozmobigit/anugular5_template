@@ -9,10 +9,11 @@ import { AlertService, ProductService } from '../../shared/_services/index';
 import { BsComponentModule } from '../bs-component/bs-component.module';
 import { GridModule } from '../userGrid/userGrid.module';
 import { TablesModule } from '../tables/tables.module';
+import {MatDialogModule,MatCardModule,MatButtonModule} from '@angular/material';
 
 @NgModule({
     imports: [CommonModule, ProductRoutingModule, PageHeaderModule, FormsModule, BsComponentModule, GridModule, TablesModule],
-    declarations: [ProductComponent],
+    declarations: [ProductComponent], 
     providers: [
       AlertService,
       ProductService,
