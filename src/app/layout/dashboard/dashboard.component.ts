@@ -3,7 +3,7 @@ import { routerTransition } from '../../router.animations';
 import { Router } from '@angular/router';
 import { AlertService,UserService,ProductService } from '../../shared';
 import { Product } from '../../shared/index';
-import {ProductTrackDialogComponent, ProductTransferDialogComponent} from '../product/product.component'
+import {ProductTrackDialogComponent, ProductTransferDialogComponent, ProductRecieveDialogComponent} from '../product/product.component'
 import { MatDialog} from '@angular/material';
 
 @Component({
@@ -39,13 +39,6 @@ export class DashboardComponent implements OnInit {
             else
             {
                 this.getAllProducts();
-                // let product = new Product();
-                // this.products.result = [];
-                // product._id = "1"
-                // product.description="Sme desc"
-                // product.name = "Anti Ageing"
-                // product.units = 1200
-                // this.products.result.push(product);
             }
     }
 
@@ -66,6 +59,7 @@ export class DashboardComponent implements OnInit {
         this.productService.getAll()
             .subscribe(
                 data => {
+                    console.log(data);
                     this.products = data;
                 },
                 error => {
@@ -82,6 +76,7 @@ export class DashboardComponent implements OnInit {
             case 'Distributor':
                 taransferUsers = 'Retailer'
         }
+        this.product_details = product_data;
         this.userService.getByRole(role)
             .subscribe(
                 data => {
@@ -94,6 +89,7 @@ export class DashboardComponent implements OnInit {
                             }
                         });
                         dialog.afterClosed().subscribe(result => {
+                        this.transfer(result, this.product_details.id);
                         console.log('The dialog was closed');
                         });
                 },
@@ -134,8 +130,10 @@ export class DashboardComponent implements OnInit {
                     this.loading = false;
                 });
     }
-    transfer(){
-        this.productService.transfer(this.transfer_product_info)
+
+    transfer(toAddress, product_id){
+        this.transfer_product_info.to_address = toAddress;
+        this.productService.transfer(this.transfer_product_info, product_id)
             .subscribe(
                 data => {
                     this.alertService.success('Product Transfered', true);
@@ -145,19 +143,61 @@ export class DashboardComponent implements OnInit {
                     this.loading = false;
                 });
     }
+    recieve(id){
+        this.productService.recieve(id)
+        .subscribe(
+            data => {
+                this.getAllProducts();
+                this.alertService.success('Product Recieved', true);
+            },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });
+    }
     showDetailsDialog(drug_data){
-        this.dialogRef = this.dialog.open(ProductTrackDialogComponent,{
-            width: '600px',
-            height: '500px',
-            data: {   
-                      product_details: drug_data,
-                      manufacture_status : 'complete',
-                      warehouse_status : 'active',
-                      distributor_status : 'disabled',
-                      retailer_status : 'disabled'
-                  }
-          });
-        // this.transferTo = this.getUserlist(role);
-        // this.show_transfer = true;
+        this.productService.trace(drug_data._id)
+            .subscribe(
+                data => {
+                    let trace_details = data
+                    // this.loading = false;
+                    this.dialogRef = this.dialog.open(ProductTrackDialogComponent,{
+                        width: '600px',
+                        height: '500px',
+                        data: {   
+                                  product_details: trace_details,
+                                  manufacture_status : 'complete',
+                                  warehouse_status : 'active',
+                                  distributor_status : 'disabled',
+                                  retailer_status : 'disabled'
+                              }
+                      });
+                      this.dialogRef.afterClosed().subscribe(result => {
+                        console.log(result);
+                        this.recieve(result);
+                        console.log('The dialog was closed');
+                      });
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
+    showRecieveDialog(drug_data){
+        this.productService.trace(drug_data._id)
+            .subscribe(
+                data => {
+                    let trace_details = data
+                    // this.loading = false;
+                    this.dialogRef = this.dialog.open(ProductRecieveDialogComponent,{
+                        width: '600px',
+                        height: '500px',
+                        data: { }
+                      });
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
     }
 }

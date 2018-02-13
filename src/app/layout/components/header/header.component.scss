@@ -9,7 +9,7 @@ $topnav-background-color: #222;
         .navbar-brand img {
             width: auto;
             border-radius: 1em;
-            height: -webkit-fill-available;
+            height: stretch;
         }
         .nav-item > a {
             color: #999;

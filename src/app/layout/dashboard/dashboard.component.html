@@ -2,7 +2,7 @@
     <app-page-header [heading]="'Dashboard'" [icon]="'fa-list-alt'"></app-page-header>
     <div class="col col-lg-12">
         <div class="card" *ngIf="isadmin">
-            <div class="card-header">Available Users</div>
+            <div class="card-header">Available {{role}}s</div>
             <div class="card-body table-responsive">
                 <table class="table table-hover table-bordered table-striped" style="width:100%">
                         <thead>
@@ -43,6 +43,7 @@
                             <th>Drug Name</th>
                             <th>Description</th>
                             <th>Quantity</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -51,7 +52,10 @@
                             <td>{{product.name}}</td>
                             <td>{{product.description}}</td>
                             <td>{{product.units}}</td>
-                            <td><button class="btn btn-sm btn-info" (click)="showDetailsDialog(product)">Details</button>&nbsp;&nbsp;<button *ngIf="!(role=='Retailer')" class="btn btn-sm btn-primary" (click)="showTransferProductModal(role, product)">Transfer</button></td>
+                            <td>{{product.product_status}}</td>
+                            <td><button class="btn btn-sm btn-info" (click)="showDetailsDialog(product)">Details</button>
+                            &nbsp;&nbsp;<button *ngIf="!(role=='Retailer') && product.product_status == 'Owned'" class="btn btn-sm btn-primary" (click)="showTransferProductModal(role, product)">Transfer</button>
+                            <!-- <button *ngIf="!(role=='Manufacturer')&& product.product_status == 'Pending'" class="btn btn-sm btn-primary" (click)="recieve(product.id)">Recieve</button></td> -->
                         </tr>
                     </tbody>
                 </table>

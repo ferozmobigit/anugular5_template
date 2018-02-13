@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { AlertComponent } from './shared/_directives/index';
 import { AlertService, AuthenticationService, UserService } from './shared/_services/index';
-import { ProductTrackDialogComponent, ProductTransferDialogComponent } from './layout/product/product.component'
+import { ProductTrackDialogComponent, ProductTransferDialogComponent, ProductRecieveDialogComponent } from './layout/product/product.component'
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -39,8 +39,8 @@ export function createTranslateLoader(http: HttpClient) {
         }),
         AppRoutingModule
     ],
-    entryComponents:[ProductTrackDialogComponent, ProductTransferDialogComponent],
-    declarations: [AppComponent, AlertComponent,ProductTrackDialogComponent, ProductTransferDialogComponent],
+    entryComponents:[ProductTrackDialogComponent, ProductTransferDialogComponent, ProductRecieveDialogComponent],
+    declarations: [AppComponent, AlertComponent,ProductTrackDialogComponent, ProductTransferDialogComponent, ProductRecieveDialogComponent],
     providers: [AuthGuard, AlertService],
     bootstrap: [AppComponent]
 })

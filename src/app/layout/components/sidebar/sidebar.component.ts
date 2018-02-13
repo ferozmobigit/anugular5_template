@@ -32,19 +32,19 @@ export class SidebarComponent {
         let role = localStorage.getItem('role');
         switch (role) {
             case 'Admin':
-                this.getsidebar()
+                this.getsidebar(role)
                 break;
             case 'Manufacturer':
-                this.getsidebar()
+                this.getsidebar(role)
                 break;
             case 'Warehouse':
-                this.getsidebar()
+                this.getsidebar(role)
                 break;
             case 'Distributor':
-                this.getsidebar()
+                this.getsidebar(role)
                 break;
             case 'Retailer':
-                this.getsidebar()
+                this.getsidebar(role)
                 break;
             default:
                 break;
@@ -85,11 +85,17 @@ export class SidebarComponent {
     onLoggedout() {
         localStorage.removeItem('isLoggedin');
     }
-    getsidebar()
+    getsidebar(role)
     {
-        return this.menu_items.push(
-            this.getdashboard(),this.getmanufacturer(),this.getwarehouse(),this.getdistributor(),this.getretailer(),this.getproduct(),this.gettracker()
-        );
+        if(role==='Manufacturer'){
+            return this.menu_items.push(
+                this.getdashboard(),this.getmanufacturer(),this.getwarehouse(),this.getdistributor(),this.getretailer(),this.getproduct(),this.gettracker()
+            );
+        }else{
+            return this.menu_items.push(
+                this.getdashboard(),this.getmanufacturer(),this.getwarehouse(),this.getdistributor(),this.getretailer(),this.gettracker()
+            );
+        }
     }
     getdashboard()
     {

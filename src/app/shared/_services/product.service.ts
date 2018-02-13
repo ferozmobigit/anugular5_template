@@ -32,8 +32,16 @@ export class ProductService {
         return this.http.put(appConfig.apiUrl + 'products/' + product._id, product, httpOptions);
     }
 
-    transfer(product_info: Object) {
-        return this.http.put(appConfig.apiUrl + 'products/transfer' , product_info, httpOptions);
+    transfer(to_address: {}, product_id: string) {
+        return this.http.post(appConfig.apiUrl + 'products/'+ product_id + '/transfer' , to_address, httpOptions);
+    }
+
+    recieve(product_id: string) {
+        return this.http.post(appConfig.apiUrl + 'products/'+ product_id + '/recieve' , httpOptions);
+    }
+
+    trace(product_id: string) {
+        return this.http.get(appConfig.apiUrl + 'products/'+ product_id + '/track' , httpOptions);
     }
 
     delete(_id: string) {

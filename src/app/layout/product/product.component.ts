@@ -18,8 +18,9 @@ export class ProductComponent implements OnInit {
     loading = false;
     closeResult: string;
     product_details: any;
-    transfer_product_info:any;
+    transfer_product_info:any={};
     dialogResult:any;
+    
     open(content) {
         this.dialogResult = this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
@@ -45,7 +46,6 @@ export class ProductComponent implements OnInit {
         private userService: UserService) { }
 
         openDialog(product_data): void {
-            console.log(product_data);
             let dialog = this.dialog.open(ProductTrackDialogComponent, {
               width: '600px',
               height: '500px',
@@ -57,12 +57,14 @@ export class ProductComponent implements OnInit {
                     }
             });
             dialog.afterClosed().subscribe(result => {
-              console.log('The dialog was closed');
+                console.log('The dialog was closed');
             });
             // dialogRef.componentInstance.dialogRef = dialogRef;
           }
     showTransferProductModal(product_data){
-        this.userService.getByRole("Warehouse")
+            console.log(product_data)
+            this.product_details = product_data;
+            this.userService.getByRole("Warehouse")
             .subscribe(
                 data => {
                     let dialog = this.dialog.open(ProductTransferDialogComponent, {
@@ -70,10 +72,12 @@ export class ProductComponent implements OnInit {
                         height: '500px',
                         data: {   
                             available_users: data,
-                            product_details: product_data
+                            product_details: this.product_details
                             }
                       });
                       dialog.afterClosed().subscribe(result => {
+                        console.log(result);
+                        this.transfer(result, this.product_details.id);
                         console.log('The dialog was closed');
                       });
                 },
@@ -133,10 +137,12 @@ export class ProductComponent implements OnInit {
                 });
     }
 
-    transfer(){
-        this.productService.transfer(this.transfer_product_info)
+    transfer(toAddress, product_id){
+        this.transfer_product_info.to_address = toAddress;
+        this.productService.transfer(this.transfer_product_info, product_id)
             .subscribe(
                 data => {
+                    this.getAllProducts();
                     this.alertService.success('Product Transfered', true);
                 },
                 error => {
@@ -183,7 +189,25 @@ export class ProductComponent implements OnInit {
 
     onNoClick(): void {
       this.dialogRef.close();
+    }
 
+  }
+
+  @Component({
+    selector: 'product-recieve-dialog',
+    templateUrl: './productRecieveDialog.html',
+    styleUrls: ['./product.component.scss'],
+  })
+  export class ProductRecieveDialogComponent {
+
+    constructor(
+      public dialogRef: MatDialogRef<ProductRecieveDialogComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.dialogRef.updatePosition({ top: '50px', left: '50px' });
+       }
+
+    onNoClick(): void {
+      this.dialogRef.close();
     }
 
   }
