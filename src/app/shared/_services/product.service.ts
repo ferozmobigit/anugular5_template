@@ -37,7 +37,7 @@ export class ProductService {
     }
 
     recieve(product_id: string) {
-        return this.http.post(appConfig.apiUrl + 'products/'+ product_id + '/recieve' , httpOptions);
+        return this.http.post(appConfig.apiUrl + 'products/'+ product_id + '/recieve' , {}, httpOptions);
     }
 
     trace(product_id: string) {

@@ -24,7 +24,7 @@ export class UserService {
         return this.http.get<User[]>(appConfig.apiUrl + 'users/?status=Pending', httpOptions);
     }
     getRoles() {
-        return this.http.get(appConfig.apiUrl + 'roles', httpOptions);
+        return this.http.get(appConfig.apiUrl + 'roles');
     }
 
     getUserRoles() {
@@ -32,7 +32,7 @@ export class UserService {
     }
 
     getByRole(role) {
-        return this.http.get<User[]>(appConfig.apiUrl + 'users/get_by_role/?role='+role, httpOptions);
+        return this.http.get<User[]>(appConfig.apiUrl + 'users/list/'+role, httpOptions);
     }
 
     getById(_id: string) {
@@ -41,7 +41,7 @@ export class UserService {
 
     create(user: User) {
         console.log(user)
-        return this.http.post(appConfig.apiUrl + 'users', user, httpOptions);
+        return this.http.post(appConfig.apiUrl + 'users', user);
     }
 
     approve_signup(_id: string, isApproved: boolean){
