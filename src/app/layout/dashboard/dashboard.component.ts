@@ -200,6 +200,7 @@ export class DashboardComponent implements OnInit {
                         }else{
                             trace_details[childObj.args.from.role]["name"] = childObj.args.from.username
                             trace_details[childObj.args.from.role]["created_at"] = childObj.args.datetime
+                            trace_details[childObj.args.from.role].status =  'active'
                             // trace_details[childObj.args.from.role]["sent_to"] = childObj.args.to.username
                         }
                         console.log(trace_details)

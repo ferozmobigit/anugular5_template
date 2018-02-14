@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { AlertService, ProductService } from '../../shared/_services/index';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Product, UserService } from '../../shared/index';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 
 @Component({
     selector: 'app-product',
@@ -22,6 +21,7 @@ export class ProductComponent implements OnInit {
     transfer_product_info:any={};
     dialogResult:any;
     loggedInUserId:any;
+    private dialogRef: any;
     
     open(content) {
         this.dialogResult = this.modalService.open(content).result.then((result) => {
@@ -45,8 +45,7 @@ export class ProductComponent implements OnInit {
         private alertService: AlertService,
         private modalService: NgbModal,
         public dialog: MatDialog,
-        private userService: UserService,
-        public activeModal: NgbActiveModal) { }
+        private userService: UserService) { }
 
         openDialog(product_data): void {
             let dialog = this.dialog.open(ProductTrackDialogComponent, {
@@ -88,16 +87,15 @@ export class ProductComponent implements OnInit {
                     console.log(error)
                 });
     }
+    
     addProduct() {
         this.loading = true;
         debugger;
-        this.activeModal.close('Close click');
         // this.dialogResult.c('Close click');
         this.productService.create(this.model)
             .subscribe(
                 data => {
                     this.alertService.success('Product added', true);
-                    this.activeModal.close('Close click');
                     this.getAllProducts();
                 },
                 error => {
@@ -131,6 +129,69 @@ export class ProductComponent implements OnInit {
                     // this.loading = false;
                 });
     }
+
+    showDetailsDialog(drug_data){
+        this.product_details = drug_data;
+        this.productService.trace(drug_data.id)
+            .subscribe(
+                data => {
+                    console.log(data)
+                    let trace_details = {
+                        Manufacturer : {
+                            status:'disabled'
+                        },
+                        Warehouse: {
+                            status:'disabled'
+                        },
+                        Distributor:{
+                            status:'disabled'
+                        },
+                        Retailer:{
+                            status:'disabled'
+                        },
+                    };
+                    data["result"].forEach(childObj=> {
+                        if(childObj.args.status == 'sent'){
+                            trace_details[childObj.args.from.role].name = childObj.args.from.username
+                            trace_details[childObj.args.from.role].sent_at = childObj.args.datetime
+                            trace_details[childObj.args.from.role].sent_to = childObj.args.to.username
+                            trace_details[childObj.args.from.role].status =  'complete'
+                            }
+                        else if(childObj.args.status == 'received'){
+                            trace_details[childObj.args.to.role].name = childObj.args.from.username
+                            trace_details[childObj.args.to.role].recieved_at = childObj.args.datetime
+                            trace_details[childObj.args.to.role].sent_by = childObj.args.to.username
+                            trace_details[childObj.args.to.role].status =  'active'
+
+                        }else{
+                            trace_details[childObj.args.from.role]["name"] = childObj.args.from.username
+                            trace_details[childObj.args.from.role]["created_at"] = childObj.args.datetime
+                            trace_details[childObj.args.from.role].status =  'active'
+                            // trace_details[childObj.args.from.role]["sent_to"] = childObj.args.to.username
+                        }
+                        console.log(trace_details)
+                     })
+                    // this.loading = false;
+                    this.dialogRef = this.dialog.open(ProductTrackDialogComponent,{
+                        width: '800px',
+                        height: '650px',
+                        data: {   
+                                  product_details: this.product_details,
+                                  trace_details: trace_details,
+                              }
+                      });
+                      this.dialogRef.afterClosed().subscribe(result => {
+                        console.log(result);
+                        // this.recieve(result);
+                        console.log('The dialog was closed');
+                      });
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
+
     getProductDetails(id: string){
         this.loading = true;
         this.productService.getById(id)
