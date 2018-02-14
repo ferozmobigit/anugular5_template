@@ -18,6 +18,7 @@ export class AuthenticationService {
                 if (user && resp.result.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('role', user.role);
+                    localStorage.setItem('_id', user._id);
                     localStorage.setItem('name', user.username);
                     localStorage.setItem('token', resp.result.token);
 

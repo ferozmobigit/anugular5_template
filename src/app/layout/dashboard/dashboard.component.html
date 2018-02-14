@@ -2,7 +2,7 @@
     <app-page-header [heading]="'Dashboard'" [icon]="'fa-list-alt'"></app-page-header>
     <div class="col col-lg-12">
         <div class="card" *ngIf="isadmin">
-            <div class="card-header">Available {{role}}s</div>
+            <div class="card-header">Pending Signups</div>
             <div class="card-body table-responsive">
                 <table class="table table-hover table-bordered table-striped" style="width:100%">
                         <thead>
@@ -34,6 +34,13 @@
             </div>
         </div>
         <br>
+        <div class="col-sm-12" *ngIf="!(role=='Admin' || role=='Manufacturer')">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <button class="btn btn-primary pull-right" (click)="showRecieveDialog()">Receive Product</button>
+                </div>
+            </div>
+        </div>
         <div class="card" *ngIf="!isadmin">
             <div class="card-header">Your Products</div>
                 <div class="card-body">
@@ -54,7 +61,7 @@
                             <td>{{product.units}}</td>
                             <td>{{product.product_status}}</td>
                             <td><button class="btn btn-sm btn-info" (click)="showDetailsDialog(product)">Details</button>
-                            &nbsp;&nbsp;<button *ngIf="!(role=='Retailer') && product.product_status == 'Owned'" class="btn btn-sm btn-primary" (click)="showTransferProductModal(role, product)">Transfer</button>
+                            &nbsp;&nbsp;<button *ngIf="!(role=='Retailer') && (product.currentOwner._id == loggedInUserId)" class="btn btn-sm btn-primary" (click)="showTransferProductModal(role, product)">Transfer</button>
                             <!-- <button *ngIf="!(role=='Manufacturer')&& product.product_status == 'Pending'" class="btn btn-sm btn-primary" (click)="recieve(product.id)">Recieve</button></td> -->
                         </tr>
                     </tbody>

@@ -36,8 +36,8 @@ export class ProductService {
         return this.http.post(appConfig.apiUrl + 'products/'+ product_id + '/transfer' , to_address, httpOptions);
     }
 
-    recieve(product_id: string) {
-        return this.http.post(appConfig.apiUrl + 'products/'+ product_id + '/recieve' , {}, httpOptions);
+    receive(product_id: string) {
+        return this.http.post(appConfig.apiUrl + 'products/'+ product_id + '/receive' , {}, httpOptions);
     }
 
     trace(product_id: string) {

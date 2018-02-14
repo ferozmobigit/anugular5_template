@@ -10,6 +10,7 @@ import { BsComponentModule } from '../bs-component/bs-component.module';
 import { GridModule } from '../userGrid/userGrid.module';
 import { TablesModule } from '../tables/tables.module';
 import {MatDialogModule,MatCardModule,MatButtonModule} from '@angular/material';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 
 @NgModule({
     imports: [CommonModule, ProductRoutingModule, PageHeaderModule, FormsModule, BsComponentModule, GridModule, TablesModule],
@@ -17,7 +18,8 @@ import {MatDialogModule,MatCardModule,MatButtonModule} from '@angular/material';
     providers: [
       AlertService,
       ProductService,
-      UserService
+      UserService,
+      NgbActiveModal
   ],
 })
 export class ProductModule {}

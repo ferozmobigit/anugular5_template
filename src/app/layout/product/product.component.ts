@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AlertService, ProductService } from '../../shared/_services/index';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Product, UserService } from '../../shared/index';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 
 @Component({
     selector: 'app-product',
@@ -20,6 +21,7 @@ export class ProductComponent implements OnInit {
     product_details: any;
     transfer_product_info:any={};
     dialogResult:any;
+    loggedInUserId:any;
     
     open(content) {
         this.dialogResult = this.modalService.open(content).result.then((result) => {
@@ -43,7 +45,8 @@ export class ProductComponent implements OnInit {
         private alertService: AlertService,
         private modalService: NgbModal,
         public dialog: MatDialog,
-        private userService: UserService) { }
+        private userService: UserService,
+        public activeModal: NgbActiveModal) { }
 
         openDialog(product_data): void {
             let dialog = this.dialog.open(ProductTrackDialogComponent, {
@@ -87,15 +90,19 @@ export class ProductComponent implements OnInit {
     }
     addProduct() {
         this.loading = true;
+        debugger;
+        this.activeModal.close('Close click');
+        // this.dialogResult.c('Close click');
         this.productService.create(this.model)
             .subscribe(
                 data => {
                     this.alertService.success('Product added', true);
-                    // this.model.c('Close click');
+                    this.activeModal.close('Close click');
                     this.getAllProducts();
                 },
                 error => {
                     this.alertService.error(error);
+                    // this.activeModal.close('Close click');
                     this.loading = false;
                 });
     }
@@ -112,6 +119,7 @@ export class ProductComponent implements OnInit {
     }
     private getAllProducts(){
         // this.loading = true;
+        this.loggedInUserId = localStorage.getItem("_id")
         this.productService.getAll()
             .subscribe(
                 data => {
