@@ -68,5 +68,11 @@
                 </table>
             </div>
         </div>
+        <br>
+        <div class="card"  *ngIf="!!(tx_hash)">
+            <div class="card-body">
+                Transaction ref: <a href="{{tx_link}}" target="_blank">{{tx_hash}}</a>
+            </div>
+        </div>
     </div>
 </div>

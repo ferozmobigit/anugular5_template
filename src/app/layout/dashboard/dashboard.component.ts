@@ -27,6 +27,8 @@ export class DashboardComponent implements OnInit {
     transferTo: any = {};
     receive_pd:any;
     private dialogRef: any;
+    tx_link:string = "https://ropsten.etherscan.io/tx/";
+    tx_hash:string;
     
     constructor(private userService:UserService,
         private router: Router,
@@ -145,6 +147,9 @@ export class DashboardComponent implements OnInit {
         this.productService.transfer(this.transfer_product_info, product_id)
             .subscribe(
                 data => {
+                    this.getAllProducts();
+                    this.tx_hash = data["result"].tx;
+                    this.tx_link = this.tx_link + this.tx_hash
                     this.alertService.success('Product Transfered', true);
                 },
                 error => {
@@ -157,6 +162,8 @@ export class DashboardComponent implements OnInit {
         .subscribe(
             data => {
                 this.getAllProducts();
+                this.tx_hash = data["result"].tx;
+                this.tx_link = this.tx_link + this.tx_hash
                 this.alertService.success('Product Recieved', true);
             },
             error => {
@@ -169,7 +176,6 @@ export class DashboardComponent implements OnInit {
         this.productService.trace(drug_data.id)
             .subscribe(
                 data => {
-                    console.log(data)
                     let trace_details = {
                         Manufacturer : {
                             status:'disabled'
@@ -192,20 +198,17 @@ export class DashboardComponent implements OnInit {
                             trace_details[childObj.args.from.role].status =  'complete'
                             }
                         else if(childObj.args.status == 'received'){
-                            trace_details[childObj.args.to.role].name = childObj.args.from.username
+                            trace_details[childObj.args.to.role].name = childObj.args.to.username
                             trace_details[childObj.args.to.role].recieved_at = childObj.args.datetime
-                            trace_details[childObj.args.to.role].sent_by = childObj.args.to.username
+                            trace_details[childObj.args.to.role].sent_by = childObj.args.from.username
                             trace_details[childObj.args.to.role].status =  'active'
 
                         }else{
                             trace_details[childObj.args.from.role]["name"] = childObj.args.from.username
                             trace_details[childObj.args.from.role]["created_at"] = childObj.args.datetime
                             trace_details[childObj.args.from.role].status =  'active'
-                            // trace_details[childObj.args.from.role]["sent_to"] = childObj.args.to.username
                         }
-                        console.log(trace_details)
                      })
-                    // this.loading = false;
                     this.dialogRef = this.dialog.open(ProductTrackDialogComponent,{
                         width: '800px',
                         height: '650px',
@@ -216,7 +219,6 @@ export class DashboardComponent implements OnInit {
                       });
                       this.dialogRef.afterClosed().subscribe(result => {
                         console.log(result);
-                        // this.recieve(result);
                         console.log('The dialog was closed');
                       });
                 },
@@ -239,8 +241,13 @@ export class DashboardComponent implements OnInit {
                 .subscribe(
                     data => {
                         this.getAllProducts();
+                        this.tx_hash = data["result"].tx;
+                        this.tx_link = this.tx_link + this.tx_hash
+                        this.alertService.success('Product Recieved Succefully', true);
                     },
-                    error => {}
+                    error => {
+                        this.alertService.error(error, true);
+                    }
                 );
             });
         }

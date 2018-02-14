@@ -1,6 +1,6 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Drug'" [icon]="'fa-edit'"></app-page-header>
-    <div class="row">
+    <div class="col-lg-12">
         <div class="col-sm-12">
             <div class="card mb-3">
                 <div class="card-body">
@@ -45,7 +45,7 @@
                                     <div class="form-group">
                                         <a class="btn rounded-btn pull-right" (click)="c('Close click')">Cancel</a>
                                         <img class="pull-right" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                        <button [disabled]="loading" class="btn rounded-btn pull-right" (click)="c('Close click')">Submit</button>
+                                        <button type="submit" [disabled]="loading" class="btn rounded-btn pull-right">Submit</button>
                                     </div>
                                 </div>
                             </form>
@@ -81,6 +81,14 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <br>
+    <div class="col-lg-12" *ngIf="!!(tx_hash)">
+        <div class="card">
+            <div class="card-body">
+                Transaction ref: <a href="{{tx_link}}" target="_blank">{{tx_hash}}</a>
+            </div>
         </div>
     </div>
 </div>

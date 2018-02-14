@@ -22,6 +22,8 @@ export class ProductComponent implements OnInit {
     dialogResult:any;
     loggedInUserId:any;
     private dialogRef: any;
+    tx_link:string = "https://ropsten.etherscan.io/tx/";
+    tx_hash:string;
     
     open(content) {
         this.dialogResult = this.modalService.open(content).result.then((result) => {
@@ -61,7 +63,6 @@ export class ProductComponent implements OnInit {
             dialog.afterClosed().subscribe(result => {
                 console.log('The dialog was closed');
             });
-            // dialogRef.componentInstance.dialogRef = dialogRef;
           }
     showTransferProductModal(product_data){
             console.log(product_data)
@@ -91,16 +92,18 @@ export class ProductComponent implements OnInit {
     addProduct() {
         this.loading = true;
         debugger;
-        // this.dialogResult.c('Close click');
         this.productService.create(this.model)
             .subscribe(
                 data => {
                     this.alertService.success('Product added', true);
                     this.getAllProducts();
+                    console.log(data)
+                    console.log(this.tx_link)
+                    this.tx_hash = data["result"].tx;
+                    this.tx_link = this.tx_link + this.tx_hash
                 },
                 error => {
                     this.alertService.error(error);
-                    // this.activeModal.close('Close click');
                     this.loading = false;
                 });
     }
@@ -116,7 +119,6 @@ export class ProductComponent implements OnInit {
         // this.products.result.push(product);
     }
     private getAllProducts(){
-        // this.loading = true;
         this.loggedInUserId = localStorage.getItem("_id")
         this.productService.getAll()
             .subscribe(
@@ -126,7 +128,6 @@ export class ProductComponent implements OnInit {
                 },
                 error => {
                     this.alertService.error(error);
-                    // this.loading = false;
                 });
     }
 
@@ -158,20 +159,18 @@ export class ProductComponent implements OnInit {
                             trace_details[childObj.args.from.role].status =  'complete'
                             }
                         else if(childObj.args.status == 'received'){
-                            trace_details[childObj.args.to.role].name = childObj.args.from.username
+                            trace_details[childObj.args.to.role].name = childObj.args.to.username
                             trace_details[childObj.args.to.role].recieved_at = childObj.args.datetime
-                            trace_details[childObj.args.to.role].sent_by = childObj.args.to.username
+                            trace_details[childObj.args.to.role].sent_by = childObj.args.from.username
                             trace_details[childObj.args.to.role].status =  'active'
 
                         }else{
                             trace_details[childObj.args.from.role]["name"] = childObj.args.from.username
                             trace_details[childObj.args.from.role]["created_at"] = childObj.args.datetime
                             trace_details[childObj.args.from.role].status =  'active'
-                            // trace_details[childObj.args.from.role]["sent_to"] = childObj.args.to.username
                         }
                         console.log(trace_details)
                      })
-                    // this.loading = false;
                     this.dialogRef = this.dialog.open(ProductTrackDialogComponent,{
                         width: '800px',
                         height: '650px',
@@ -182,9 +181,11 @@ export class ProductComponent implements OnInit {
                       });
                       this.dialogRef.afterClosed().subscribe(result => {
                         console.log(result);
-                        // this.recieve(result);
                         console.log('The dialog was closed');
                       });
+                    //   this.dialogRef.afterOpen().subscribe(result => {
+                    //       setInterval(this.dialogRef.close(), 10000)
+                    //     });
                 },
                 error => {
                     this.alertService.error(error);
@@ -212,6 +213,8 @@ export class ProductComponent implements OnInit {
             .subscribe(
                 data => {
                     this.getAllProducts();
+                    this.tx_hash = data["result"].tx;
+                    this.tx_link = this.tx_link + this.tx_hash
                     this.alertService.success('Product Transfered', true);
                 },
                 error => {
