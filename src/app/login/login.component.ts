@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     // ngOnInit() {}
 
     // onLoggedin() {
-    //     localStorage.setItem('isLoggedin', 'true');
+    //     sessionStorage.setItem('isLoggedin', 'true');
     // }
     model: any = {};
     loading = false;

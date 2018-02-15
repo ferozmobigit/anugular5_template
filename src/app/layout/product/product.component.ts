@@ -24,6 +24,7 @@ export class ProductComponent implements OnInit {
     private dialogRef: any;
     tx_link:string = "https://ropsten.etherscan.io/tx/";
     tx_hash:string;
+    createDialog:any;
     
     open(content) {
         this.dialogResult = this.modalService.open(content).result.then((result) => {
@@ -80,6 +81,7 @@ export class ProductComponent implements OnInit {
                       });
                       dialog.afterClosed().subscribe(result => {
                         console.log(result);
+                        this.loading = true;
                         if(!!result){
                             this.transfer(result, this.product_details.id);
                             console.log('The dialog was closed');
@@ -90,26 +92,46 @@ export class ProductComponent implements OnInit {
                     console.log(error)
                 });
     }
+
+    showCreateProductModal(){
+        this.createDialog = this.dialog.open(ProductCreateDialogComponent, {
+            width: '600px',
+            height: '500px',
+            data: { }
+            });
+            this.createDialog.afterClosed()
+            .subscribe(result => {
+                console.log(result);
+                if(!!result){
+                    // this.transfer(result, this.product_details.id);
+                    this.loading = true;
+                    this.addProduct(result);
+                    console.log('The dialog was closed');
+                }
+            });
+    }
     
-    addProduct() {
-        this.loading = true;
-        debugger;
-        this.productService.create(this.model)
+    addProduct(prd_data) {
+        // this.loading = true;
+        // debugger;
+        this.productService.create(prd_data)
             .subscribe(
                 data => {
                     this.getAllProducts();
-                    this.alertService.success('Product added', true);
+                    this.loading = false;
+                    this.alertService.success('Product added successfully', true);
                     this.tx_hash = data["result"].tx;
                     this.tx_link = this.tx_link + this.tx_hash
+                    // this.createDialog.close();
                 },
                 error => {
-                    this.alertService.error(error);
                     this.loading = false;
+                    this.alertService.error(error.error.error.message);
                 });
     }
 
     ngOnInit() {
-        this.getAllProducts()
+        this.getAllProducts();
     }
     private getAllProducts(){
         this.loggedInUserId = localStorage.getItem("_id")
@@ -200,6 +222,7 @@ export class ProductComponent implements OnInit {
             .subscribe(
                 data => {
                     this.getAllProducts();
+                    this.loading = false;
                     this.tx_hash = data["result"].tx;
                     this.tx_link = this.tx_link + this.tx_hash
                     this.alertService.success('Product transfered successfully', true);
@@ -261,6 +284,25 @@ export class ProductComponent implements OnInit {
 
     constructor(
       public dialogRef: MatDialogRef<ProductRecieveDialogComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.dialogRef.updatePosition({ top: '50px', left: '50px' });
+       }
+
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+
+  }
+
+  @Component({
+    selector: 'product-create-dialog',
+    templateUrl: './productCreateDialog.html',
+    styleUrls: ['./product.component.scss'],
+  })
+  export class ProductCreateDialogComponent {
+
+    constructor(
+      public dialogRef: MatDialogRef<ProductCreateDialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any) {
         this.dialogRef.updatePosition({ top: '50px', left: '50px' });
        }

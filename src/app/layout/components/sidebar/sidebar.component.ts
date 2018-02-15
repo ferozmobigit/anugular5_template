@@ -29,7 +29,7 @@ export class SidebarComponent {
             }
         });
 
-        let role = localStorage.getItem('role');
+        let role = sessionStorage.getItem('role');
         switch (role) {
             case 'Admin':
                 this.getsidebar(role)
@@ -83,7 +83,7 @@ export class SidebarComponent {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+        sessionStorage.removeItem('isLoggedin');
     }
     getsidebar(role)
     {

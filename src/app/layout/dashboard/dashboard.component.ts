@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.role = localStorage.getItem('role');
+        this.role = sessionStorage.getItem('role');
         this.isadmin = this.role=='Admin' ? true : false
         if(this.isadmin)
         {
@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
     }
 
     private getAllProducts(){
-        this.loggedInUserId = localStorage.getItem('_id');
+        this.loggedInUserId = sessionStorage.getItem('_id');
         console.log(this.loggedInUserId)
         this.productService.getAll()
             .subscribe(
@@ -101,6 +101,7 @@ export class DashboardComponent implements OnInit {
                             });
                     dialog.afterClosed().subscribe(result => {
                         if(!!result){
+                            this.loading = true;
                             this.transfer(result, this.product_details.id);
                             console.log('The dialog was closed');
                         }
@@ -119,17 +120,17 @@ export class DashboardComponent implements OnInit {
         this.userService.approve_signup(_id, isApproved)
             .subscribe(
                 data => {
-                    this.loading = false;
                     this.getAllPendingSignups();
+                    this.loading = false;
                     if(isApproved){
-                        this.alertService.success("Approval Successful", true);
+                        this.alertService.success("User approval successful", true);
                     }else{
-                        this.alertService.success("Regection Successful", true);
+                        this.alertService.success("User regection successful", true);
                     }
                 },
                 error => {
-                    this.loading = false;
                     this.getAllPendingSignups();
+                    this.loading = false;
                     this.alertService.error(error.error.message);
                 });
     }
@@ -156,28 +157,14 @@ export class DashboardComponent implements OnInit {
                     this.getAllProducts();
                     this.tx_hash = data["result"].tx;
                     this.tx_link = this.tx_link + this.tx_hash
-                    this.alertService.success('Product Transfered', true);
+                    this.loading = false;
+                    this.alertService.success('Product transfered successfully', true);
                 },
                 error => {
-                    debugger;
-                    this.alertService.error(error.error.message);
                     this.loading = false;
+                    this.alertService.error(error.error.message);
                 });
     }
-    // receive(){
-    //     this.productService.receive(this.receive_pd)
-    //     .subscribe(
-    //         data => {
-    //             this.getAllProducts();
-    //             this.tx_hash = data["result"].tx;
-    //             this.tx_link = this.tx_link + this.tx_hash
-    //             this.alertService.success('Product Recieved', true);
-    //         },
-    //         error => {
-    //             this.alertService.error(error);
-    //             this.loading = false;
-    //         });
-    // }
     showDetailsDialog(drug_data){
         this.product_details = drug_data;
         this.productService.trace(drug_data.id)
@@ -230,8 +217,8 @@ export class DashboardComponent implements OnInit {
                       });
                 },
                 error => {
-                    this.alertService.error(error.error.message);
                     this.loading = false;
+                    this.alertService.error(error.error.message);
                 });
     }
 
@@ -242,16 +229,19 @@ export class DashboardComponent implements OnInit {
                 data: { }
                 });
             dialog.afterClosed().subscribe(result => {
+                this.loading = true;
                 this.productService.receive(result)
                 .subscribe(
                     data => {
                         this.getAllProducts();
                         this.tx_hash = data["result"].tx;
                         this.tx_link = this.tx_link + this.tx_hash
-                        this.alertService.success('Product Recieved Succefully', true);
+                        this.loading = false;
+                        this.alertService.success('Product recieved succefully', true);
                     },
                     error => {
-                        this.alertService.error(error.error.message, true);
+                        this.loading = false;
+                        this.alertService.error(error.error.message);
                     }
                 );
             });

@@ -1,60 +1,12 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Drugs'" [icon]="'fa-edit'"></app-page-header>
     <alert></alert>
+    <div *ngIf="loading" class="alert alert-info">Please wait, the request is being processed...<img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></div>
     <div class="col-lg-12">
         <div class="col-sm-12">
             <div class="card mb-3">
                 <div class="card-body">
-                    <button class="btn btn-primary pull-right" (click)="open(content)">Add Product</button>
-                    <ng-template #content let-c="close" let-d="dismiss">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add Product</h4>
-                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form name="form" (ngSubmit)="f.form.valid && addProduct()" #f="ngForm" novalidate>
-                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
-                                    <label for="name">Drug name</label>
-                                    <input type="text" class="form-control input-underline input-lg" name="name" [(ngModel)]="model.name" #name="ngModel" required />
-                                    <div *ngIf="f.submitted && !name.valid" class="help-block">name is required</div>
-                                </div>
-                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !description.valid }">
-                                    <label for="description">Description</label>
-                                    <input type="text" class="form-control input-underline input-lg" name="description" [(ngModel)]="model.description" #description="ngModel" required />
-                                    <div *ngIf="f.submitted && !description.valid" class="help-block">description is required</div>
-                                </div>
-                                <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !disease.valid }">
-                                    <label for="disease">Disease Name</label>
-                                    <input type="text" class="form-control input-underline input-lg" name="disease" [(ngModel)]="model.disease" #disease="ngModel" required />
-                                    <div *ngIf="f.submitted && !disease.valid" class="help-block">disease is required</div>
-                                </div> -->
-                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !units.valid }">
-                                    <label for="units">Available Quantity</label>
-                                    <input type="number" class="form-control input-underline input-lg" name="units" [(ngModel)]="model.units" #units="ngModel" required />
-                                    <div *ngIf="f.submitted && !units.valid" class="help-block">quantity is required</div>
-                                </div>
-                                <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !drugImage.valid }">
-                                    <label for="drugImage">Drug Image</label>
-                                    <input type="file" class="form-control input-underline input-lg" name="drugImage" [(ngModel)]="model.drugImage" #drugImage="ngModel" />
-                                    <div *ngIf="f.submitted && !drugImage.valid" class="help-block">image is required</div>
-                                </div> -->
-                                <!-- <br>
-                                <hr> -->
-                                <div class="modal-footer">
-                                    <div class="form-group">
-                                        <a class="btn rounded-btn pull-right" (click)="c('Close click')">Cancel</a>
-                                        <img class="pull-right" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                        <button type="submit" [disabled]="loading" class="btn rounded-btn pull-right">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-                        </div> -->
-                    </ng-template>
+                    <button class="btn btn-primary pull-right" (click)="showCreateProductModal()">Add Product</button>
                 </div>
             </div>
         </div>

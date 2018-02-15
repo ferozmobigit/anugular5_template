@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
                 this.toggleSidebar();
             }
         });
-        this.user_name = localStorage.getItem('name');
+        this.user_name = sessionStorage.getItem('name');
     }
 
     ngOnInit() {}
@@ -37,7 +37,12 @@ export class HeaderComponent implements OnInit {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+        sessionStorage.removeItem('isLoggedin');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('role');
+        sessionStorage.removeItem('_id');
+        sessionStorage.removeItem('name');
+        this.router.navigate(['/login']);
     }
 
 }

@@ -17,11 +17,10 @@ export class AuthenticationService {
                 // login successful if there's a jwt token in the response
                 if (user && resp.result.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('role', user.role);
-                    localStorage.setItem('_id', user._id);
-                    localStorage.setItem('name', user.username);
-                    localStorage.setItem('token', resp.result.token);
-
+                    sessionStorage.setItem('role', user.role);
+                    sessionStorage.setItem('_id', user._id);
+                    sessionStorage.setItem('name', user.username);
+                    sessionStorage.setItem('token', resp.result.token);
                 }
 
                 return user;
@@ -30,9 +29,9 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('role');
-        localStorage.removeItem('name');
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('currentUser');
+        sessionStorage.removeItem('role');
+        sessionStorage.removeItem('name');
+        sessionStorage.removeItem('token');
     }
 }
