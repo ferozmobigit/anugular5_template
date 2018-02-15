@@ -12,6 +12,7 @@ import {
 } from './components';
 import { StatModule, AlertService, UserService, ProductService } from '../../shared';
 import { MatDialogRef } from '@angular/material';
+import { AlertModule } from '../../shared/_directives/alert.module';
 
 @NgModule({
     imports: [
@@ -20,13 +21,14 @@ import { MatDialogRef } from '@angular/material';
         NgbCarouselModule.forRoot(),
         NgbAlertModule.forRoot(),
         DashboardRoutingModule,
-        StatModule,
+        AlertModule,
+        StatModule        
     ],
     declarations: [
         DashboardComponent,
         TimelineComponent,
         NotificationComponent,
-        ChatComponent
+        ChatComponent        
     ],
     providers: [
       AlertService,

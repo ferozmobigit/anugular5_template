@@ -42,9 +42,10 @@ export class LoginComponent implements OnInit {
                 data => {
                     this.router.navigate([this.returnUrl]);
                     localStorage.setItem('isLoggedin', 'true');
+                    this.alertService.success("Sign in successful, redirecting...", true);
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.error.error.message);
                     this.loading = false;
                 });
     }

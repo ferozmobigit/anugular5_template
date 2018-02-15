@@ -1,28 +1,9 @@
 <div class="login-page" [@routerTransition]>
+
     <div class="row justify-content-md-center">
         <div class="col-md-4">
             <img class="user-avatar" src="assets/images/logo.png" width="150px" />
             <h1>Epedigree</h1>
-            <!-- <form role="form">
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Full Name">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Email">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Repeat Password">
-                    </div>
-                </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']"> Register </a>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
-            </form> -->
              <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
                     <label for="name">Name</label>
@@ -64,5 +45,8 @@
                 </div>
             </form>
         </div>
+    </div>
+    <div class="row justify-content-md-center">
+     <alert></alert>
     </div>
 </div>

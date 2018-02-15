@@ -5,9 +5,14 @@ import { FormsModule }    from '@angular/forms';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { AlertService, AuthenticationService, UserService } from '../shared/_services/index';
+import { AlertModule } from '../shared/_directives/alert.module';
 
 @NgModule({
-    imports: [CommonModule, LoginRoutingModule, FormsModule],
+    imports: [
+      CommonModule, 
+      LoginRoutingModule,
+      FormsModule,
+      AlertModule],
     declarations: [LoginComponent],
     providers: [
       AlertService,

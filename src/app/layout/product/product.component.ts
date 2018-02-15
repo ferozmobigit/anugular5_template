@@ -80,8 +80,10 @@ export class ProductComponent implements OnInit {
                       });
                       dialog.afterClosed().subscribe(result => {
                         console.log(result);
-                        this.transfer(result, this.product_details.id);
-                        console.log('The dialog was closed');
+                        if(!!result){
+                            this.transfer(result, this.product_details.id);
+                            console.log('The dialog was closed');
+                        }
                       });
                 },
                 error => {
@@ -95,10 +97,8 @@ export class ProductComponent implements OnInit {
         this.productService.create(this.model)
             .subscribe(
                 data => {
-                    this.alertService.success('Product added', true);
                     this.getAllProducts();
-                    console.log(data)
-                    console.log(this.tx_link)
+                    this.alertService.success('Product added', true);
                     this.tx_hash = data["result"].tx;
                     this.tx_link = this.tx_link + this.tx_hash
                 },
@@ -110,13 +110,6 @@ export class ProductComponent implements OnInit {
 
     ngOnInit() {
         this.getAllProducts()
-        // let product = new Product();
-        // this.products.result = [];
-        // product._id = "1"
-        // product.description="Sme desc"
-        // product.name = "Anti Ageing"
-        // product.units = 1200
-        // this.products.result.push(product);
     }
     private getAllProducts(){
         this.loggedInUserId = localStorage.getItem("_id")
@@ -124,10 +117,9 @@ export class ProductComponent implements OnInit {
             .subscribe(
                 data => {
                     this.products = data;
-                    this.alertService.success('Product added', true);
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.error.error.message);
                 });
     }
 
@@ -169,7 +161,6 @@ export class ProductComponent implements OnInit {
                             trace_details[childObj.args.from.role]["created_at"] = childObj.args.datetime
                             trace_details[childObj.args.from.role].status =  'active'
                         }
-                        console.log(trace_details)
                      })
                     this.dialogRef = this.dialog.open(ProductTrackDialogComponent,{
                         width: '800px',
@@ -180,15 +171,11 @@ export class ProductComponent implements OnInit {
                               }
                       });
                       this.dialogRef.afterClosed().subscribe(result => {
-                        console.log(result);
                         console.log('The dialog was closed');
                       });
-                    //   this.dialogRef.afterOpen().subscribe(result => {
-                    //       setInterval(this.dialogRef.close(), 10000)
-                    //     });
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.error.error.message);
                     this.loading = false;
                 });
     }
@@ -215,10 +202,10 @@ export class ProductComponent implements OnInit {
                     this.getAllProducts();
                     this.tx_hash = data["result"].tx;
                     this.tx_link = this.tx_link + this.tx_hash
-                    this.alertService.success('Product Transfered', true);
+                    this.alertService.success('Product transfered successfully', true);
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.error.error.message);
                     this.loading = false;
                 });
     }

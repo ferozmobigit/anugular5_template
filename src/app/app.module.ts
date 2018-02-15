@@ -11,8 +11,7 @@ import { MatDialogModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
-import { AlertComponent } from './shared/_directives/index';
-import { AlertService, AuthenticationService, UserService } from './shared/_services/index';
+import { AuthenticationService, UserService } from './shared/_services/index';
 import { ProductTrackDialogComponent, ProductTransferDialogComponent, ProductRecieveDialogComponent } from './layout/product/product.component'
 
 // AoT requires an exported function for factories
@@ -40,8 +39,8 @@ export function createTranslateLoader(http: HttpClient) {
         AppRoutingModule
     ],
     entryComponents:[ProductTrackDialogComponent, ProductTransferDialogComponent, ProductRecieveDialogComponent],
-    declarations: [AppComponent, AlertComponent,ProductTrackDialogComponent, ProductTransferDialogComponent, ProductRecieveDialogComponent],
-    providers: [AuthGuard, AlertService],
+    declarations: [AppComponent, ProductTrackDialogComponent, ProductTransferDialogComponent, ProductRecieveDialogComponent],
+    providers: [AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

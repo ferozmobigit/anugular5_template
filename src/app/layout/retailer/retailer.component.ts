@@ -15,15 +15,19 @@ export class RetailerComponent implements OnInit {
     constructor(private userService:UserService,
         private router: Router,
         private productService: ProductService,) {
-            this.getAllUsers()
+            
         }
-    userGrid: any;
-    ngOnInit() {}
+    userGrid: any={};
+
+    ngOnInit() {
+        this.userGrid.role = 'Retailers';
+        this.getAllUsers();
+    }
     private getAllUsers() {
     this.userService.getByRole('Retailer')
         .subscribe(
             data => {
-                this.userGrid = data;
+                this.userGrid.data = data;
                 console.log(this.userGrid)
             },
             error => {

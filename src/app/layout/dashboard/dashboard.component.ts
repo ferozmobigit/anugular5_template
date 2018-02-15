@@ -35,19 +35,20 @@ export class DashboardComponent implements OnInit {
         private productService: ProductService,
         private alertService: AlertService, 
         private dialog: MatDialog) {
-            this.role = localStorage.getItem('role');
-            this.isadmin = this.role=='Admin' ? true : false
-            if(this.isadmin)
-            {
-                this.getAllPendingSignups();
-            }
-            else
-            {
-                this.getAllProducts();
-            }
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.role = localStorage.getItem('role');
+        this.isadmin = this.role=='Admin' ? true : false
+        if(this.isadmin)
+        {
+            this.getAllPendingSignups();
+        }
+        else
+        {
+            this.getAllProducts();
+        }
+    }
 
     private getAllPendingSignups() {
         this.userService.getAllPendingSignups()
@@ -99,9 +100,10 @@ export class DashboardComponent implements OnInit {
                                 }
                             });
                     dialog.afterClosed().subscribe(result => {
-                        debugger;
-                        this.transfer(result, this.product_details.id);
-                        console.log('The dialog was closed');
+                        if(!!result){
+                            this.transfer(result, this.product_details.id);
+                            console.log('The dialog was closed');
+                        }
                     });
                 },
                 error => {
@@ -119,12 +121,16 @@ export class DashboardComponent implements OnInit {
                 data => {
                     this.loading = false;
                     this.getAllPendingSignups();
-                    this.alertService.success("Success");
+                    if(isApproved){
+                        this.alertService.success("Approval Successful", true);
+                    }else{
+                        this.alertService.success("Regection Successful", true);
+                    }
                 },
                 error => {
                     this.loading = false;
                     this.getAllPendingSignups();
-                    this.alertService.error(error);
+                    this.alertService.error(error.error.message);
                 });
     }
 
@@ -153,24 +159,25 @@ export class DashboardComponent implements OnInit {
                     this.alertService.success('Product Transfered', true);
                 },
                 error => {
-                    this.alertService.error(error);
+                    debugger;
+                    this.alertService.error(error.error.message);
                     this.loading = false;
                 });
     }
-    receive(){
-        this.productService.receive(this.receive_pd)
-        .subscribe(
-            data => {
-                this.getAllProducts();
-                this.tx_hash = data["result"].tx;
-                this.tx_link = this.tx_link + this.tx_hash
-                this.alertService.success('Product Recieved', true);
-            },
-            error => {
-                this.alertService.error(error);
-                this.loading = false;
-            });
-    }
+    // receive(){
+    //     this.productService.receive(this.receive_pd)
+    //     .subscribe(
+    //         data => {
+    //             this.getAllProducts();
+    //             this.tx_hash = data["result"].tx;
+    //             this.tx_link = this.tx_link + this.tx_hash
+    //             this.alertService.success('Product Recieved', true);
+    //         },
+    //         error => {
+    //             this.alertService.error(error);
+    //             this.loading = false;
+    //         });
+    // }
     showDetailsDialog(drug_data){
         this.product_details = drug_data;
         this.productService.trace(drug_data.id)
@@ -223,7 +230,7 @@ export class DashboardComponent implements OnInit {
                       });
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.error.message);
                     this.loading = false;
                 });
     }
@@ -235,8 +242,6 @@ export class DashboardComponent implements OnInit {
                 data: { }
                 });
             dialog.afterClosed().subscribe(result => {
-                console.log(result);
-                console.log('The dialog was closed');
                 this.productService.receive(result)
                 .subscribe(
                     data => {
@@ -246,7 +251,7 @@ export class DashboardComponent implements OnInit {
                         this.alertService.success('Product Recieved Succefully', true);
                     },
                     error => {
-                        this.alertService.error(error, true);
+                        this.alertService.error(error.error.message, true);
                     }
                 );
             });

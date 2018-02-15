@@ -1,5 +1,6 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Dashboard'" [icon]="'fa-list-alt'"></app-page-header>
+    <alert></alert>
     <div class="col col-lg-12">
         <div class="card" *ngIf="isadmin">
             <div class="card-header">Pending Signups</div>
@@ -34,7 +35,7 @@
             </div>
         </div>
         <br>
-        <div class="col-sm-12" *ngIf="!(role=='Admin' || role=='Manufacturer')">
+        <div *ngIf="!(role=='Admin' || role=='Manufacturer')">
             <div class="card mb-3">
                 <div class="card-body">
                     <button class="btn btn-primary pull-right" (click)="showRecieveDialog()">Receive Product</button>

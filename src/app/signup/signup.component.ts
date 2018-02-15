@@ -25,10 +25,10 @@ export class SignupComponent implements OnInit {
             .subscribe(
                 data => {
                     this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
+                    // this.router.navigate(['/login']);
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.error.error.message);
                     this.loading = false;
                 });
     }
@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
                     this.roles = data;
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.error.error.message);
                     this.loading = false;
                 });
     }

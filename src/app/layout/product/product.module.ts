@@ -11,9 +11,19 @@ import { GridModule } from '../userGrid/userGrid.module';
 import { TablesModule } from '../tables/tables.module';
 import {MatDialogModule,MatCardModule,MatButtonModule} from '@angular/material';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
+import { AlertModule } from '../../shared/_directives/alert.module';
 
 @NgModule({
-    imports: [CommonModule, ProductRoutingModule, PageHeaderModule, FormsModule, BsComponentModule, GridModule, TablesModule],
+    imports: [
+      CommonModule,
+      ProductRoutingModule, 
+      PageHeaderModule, 
+      FormsModule, 
+      BsComponentModule, 
+      GridModule, 
+      TablesModule,
+      AlertModule
+    ],
     declarations: [ProductComponent], 
     providers: [
       AlertService,
