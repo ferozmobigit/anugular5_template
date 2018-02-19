@@ -67,9 +67,16 @@ $blue: #3498db;
 .card-blue {
     border-top: 4px solid $blue;
     :before {
-      color: $blue;
-      content: "\f205";
-      font-family: 'FontAwesome';
+        color: $blue;
+        background-image: url('../../../assets/images/Pills_pack.png');
+        background-size: 35px 35px;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 40px;
+        height: 45px;
+        content: "";
+        font-family: 'FontAwesome';
+        margin-top: 5px;
     }
     .card-separator {
       border: 1px solid $blue;
