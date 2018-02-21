@@ -81,10 +81,12 @@ export class ProductComponent implements OnInit {
                       });
                       dialog.afterClosed().subscribe(result => {
                         console.log(result);
-                        this.loading = true;
                         if(!!result){
-                            this.transfer(result, this.product_details.id);
-                            console.log('The dialog was closed');
+                            this.loading = true;
+                            if(!!result){
+                                this.transfer(result, this.product_details.id);
+                                console.log('The dialog was closed');
+                            }
                         }
                       });
                 },
@@ -126,7 +128,7 @@ export class ProductComponent implements OnInit {
                 },
                 error => {
                     this.loading = false;
-                    this.alertService.error(error.error.error.message);
+                    this.alertService.error(error.error.errors[0].messages[0]);
                 });
     }
 
@@ -134,14 +136,15 @@ export class ProductComponent implements OnInit {
         this.getAllProducts();
     }
     private getAllProducts(){
-        this.loggedInUserId = localStorage.getItem("_id")
+        this.loggedInUserId = sessionStorage.getItem("_id")
         this.productService.getAll()
             .subscribe(
                 data => {
                     this.products = data;
                 },
                 error => {
-                    this.alertService.error(error.error.error.message);
+                    console.log(error)
+                    // this.alertService.error(error.error.errors[0].messages[0]);
                 });
     }
 
@@ -197,7 +200,7 @@ export class ProductComponent implements OnInit {
                       });
                 },
                 error => {
-                    this.alertService.error(error.error.error.message);
+                    this.alertService.error(error.error.errors[0].messages[0]);
                     this.loading = false;
                 });
     }
@@ -228,7 +231,7 @@ export class ProductComponent implements OnInit {
                     this.alertService.success('Product transfered successfully', true);
                 },
                 error => {
-                    this.alertService.error(error.error.error.message);
+                    this.alertService.error(error.error.errors[0].messages[0]);
                     this.loading = false;
                 });
     }

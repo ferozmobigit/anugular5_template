@@ -45,7 +45,8 @@ export class LoginComponent implements OnInit {
                     this.alertService.success("Sign in successful, redirecting...", true);
                 },
                 error => {
-                    this.alertService.error(error.error.error.message);
+                    console.log(error)
+                    this.alertService.error(error.error.message);
                     this.loading = false;
                 });
     }

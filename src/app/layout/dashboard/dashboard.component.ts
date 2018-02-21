@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
                     this.users = data;
                 },
                 error => {
-                    console.log(error)
+                    console.log(error.error.message)
                 });
     }
 
@@ -71,7 +71,8 @@ export class DashboardComponent implements OnInit {
                     this.products = data;
                 },
                 error => {
-                    this.alertService.error(error);
+                    console.log(error.error.message)
+                    // this.alertService.error(error);
                 });
     }
     showTransferProductModal(role, product_data){
@@ -108,7 +109,7 @@ export class DashboardComponent implements OnInit {
                     });
                 },
                 error => {
-                    console.log(error)
+                    console.log(error.error.message)
                 });
     }
     public closeAlert(alert: any) {
@@ -130,8 +131,8 @@ export class DashboardComponent implements OnInit {
                 },
                 error => {
                     this.getAllPendingSignups();
-                    this.loading = false;
                     this.alertService.error(error.error.message);
+                    this.loading = false;
                 });
     }
 
